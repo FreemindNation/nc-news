@@ -1,15 +1,23 @@
 import axios from "axios";
 
+
 const ncNews = axios.create({
     baseURL: 'https://nc-news-4642.onrender.com/api'
 });
 
 
-export const getArticles = ()=> {
-    return ncNews.get('/articles')
+export const getArticles = (article_id)=> {
+    if(article_id) {
+        return ncNews.get(`/articles/${article_id}`, )
     .then((res)=> {
         return res.data;
-    })
+    });
+    }
+    
+    return ncNews.get('/articles/', )
+    .then((res)=> {
+        return res.data;
+    });
 }
 
 // export const getTopics = ()=> {
