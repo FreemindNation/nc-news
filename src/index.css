@@ -71,3 +71,11 @@ button:focus-visible {
   display: flex;
   flex-direction: column;
 }
+
+.article-list {
+  display: flex;
+  flex-direction: colums;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1em;
+}
