@@ -5,6 +5,7 @@ import Header from './components/Header';
 import Login from './Login';
 import ArticlesList from './components/ArticlesList';
 import { UserProvider } from './contexts/UserContext';
+import FullArticle from './components/FullArticle';
 
 
 
@@ -18,7 +19,8 @@ const App = () => {
         <Header />
         <Routes>
           <Route path='/' element={<Login />}/>
-          <Route path='/articles' element={<ArticlesList articles={articles} setArticles={setArticles}/>} />
+          <Route path='/articles/' element={<ArticlesList articles={articles} setArticles={setArticles}/>} />
+          <Route path='/articles/:article_id' element={<FullArticle />} />
         </Routes>
       </BrowserRouter>
     </UserProvider>
