@@ -2,7 +2,7 @@ import { useState, useContext } from "react";
 import { UserContext } from "../contexts/UserContext";
 import { postComment } from "../utils/api-calls";
 
-const CommentAdder = ({ article, setComments }) => {
+const CommentAdder = ({ article, setArticle, setComments }) => {
 
   const { user, setUser } = useContext(UserContext);
 
@@ -19,7 +19,11 @@ const CommentAdder = ({ article, setComments }) => {
         setNewComment('');
         setComments((currentComments)=> {
             return [newCommentFromApi, ...currentComments]
-        })
+        });
+        setArticle((currentArticle)=>{
+            return {...currentArticle, comment_count: article.comment_count + 1}
+        });
+
     })
 
     
