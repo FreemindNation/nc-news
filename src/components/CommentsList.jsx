@@ -1,10 +1,18 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import { getCommentsByArticleId } from "../utils/api-calls";
 import CommentCard from "./CommentCard";
-import { Stack } from "react-bootstrap";
+
+import CommentAdder from "./CommentAdder";
+
+
 const CommentsList = ({ article }) => {
-  const [comments, setComments] = useState();
+
+
+  
+  const [comments, setComments] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+  
+
 
   useEffect(() => {
     setIsLoading(true);
@@ -14,19 +22,15 @@ const CommentsList = ({ article }) => {
     });
   }, [article.article_id]);
 
+  
+
   if (isLoading) {
     return <p>Loading...</p>;
   }
 
   return (
     <section>
-      <section><br />
-        <form action="" className="comment-form" >
-          <label htmlFor="new-comment">Comment below:</label>
-          <textarea multiline='true' id="new-comment" placeholder="what's your thought?"/>
-          <button>Add comment</button>
-        </form>
-      </section>
+      <CommentAdder  article={article}setComments={setComments} />
       <section>
         {comments.map((comment) => {
           return <CommentCard key={comment.comment_id} comment={comment} />;
