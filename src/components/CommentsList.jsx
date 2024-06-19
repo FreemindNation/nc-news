@@ -22,8 +22,8 @@ const CommentsList = ({ article }) => {
     <section>
       <section><br />
         <form action="" className="comment-form" >
-          <label htmlFor="add-comment">Comment below:</label>
-          <input type="text" id="add-comment" placeholder="what's your thought?"/>
+          <label htmlFor="new-comment">Comment below:</label>
+          <textarea multiline='true' id="new-comment" placeholder="what's your thought?"/>
           <button>Add comment</button>
         </form>
       </section>
