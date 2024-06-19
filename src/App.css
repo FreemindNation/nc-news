@@ -29,3 +29,8 @@
   display: inline-flex;
   flex-direction: column;
 }
+.card-footer {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+}

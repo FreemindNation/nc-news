@@ -5,7 +5,7 @@ import CommentCard from "./CommentCard";
 import CommentAdder from "./CommentAdder";
 
 
-const CommentsList = ({ article }) => {
+const CommentsList = ({ article, setArticle }) => {
 
 
   
@@ -30,12 +30,12 @@ const CommentsList = ({ article }) => {
 
   return (
     <section>
-      <CommentAdder  article={article}setComments={setComments} />
-      <section>
-        {comments.map((comment) => {
-          return <CommentCard key={comment.comment_id} comment={comment} />;
+      <CommentAdder  article={article} setArticle={setArticle} setComments={setComments} />
+      
+        {comments.map((comment, index) => {
+          return <CommentCard key={comment.comment_id} setArticle={setArticle} article={article} comment={comment} comments={comments} setComments={setComments} index={index} />;
         })}
-      </section>
+      
     </section>
   );
 };

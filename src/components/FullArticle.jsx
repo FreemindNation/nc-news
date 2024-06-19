@@ -79,7 +79,7 @@ const FullArticle = () => {
       </section> <br />
       <section>
         <Collapsible contentDescriptor={'comments'} commentCount={article.comment_count}>
-            <CommentsList article={article} />
+            <CommentsList article={article} setArticle={setArticle} />
         </Collapsible>
       </section>
     </>
