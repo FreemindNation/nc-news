@@ -20,6 +20,13 @@ export const getArticles = (article_id)=> {
     });
 }
 
+export const getCommentsByArticleId = (article_id)=> {
+    return ncNews.get(`/articles/${article_id}/comments`)
+    .then((res)=> {
+        return res.data;
+    })
+}
+
 // export const getTopics = ()=> {
 //     return ncNews.get('/topics')
 //     .then((res)=> {
