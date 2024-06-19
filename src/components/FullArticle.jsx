@@ -61,7 +61,7 @@ const FullArticle = () => {
           <p>{article.body}</p>
           <figure>
             <img src={article.article_img_url} alt="Image of the article" />
-            <figcaption>Image relating to {article.title}</figcaption>
+            <figcaption><em><small>Image relating to {article.title}</small></em></figcaption>
           </figure>
           <div className="comments-votes">
             <p>Votes: {article.votes}</p>

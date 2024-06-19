@@ -27,12 +27,24 @@ export const getCommentsByArticleId = (article_id)=> {
     })
 }
 
-export const patchArticle  = (article_id, increament)=> {
-    const patchBody = {inc_vote : increament };
+export const patchArticle  = (article_id, inc)=> {
+    const patchBody = {inc_vote : inc };
 
     return ncNews.patch(`/articles/${article_id}`, patchBody)
     .then((res)=> {
         return res.data.updatedArticle.votes;
+    })
+}
+
+export const postComment = (newComment, article_id, user)=> {
+    const postBody = {
+        username: user,
+        body: newComment
+    }
+    return ncNews.post(`/articles/${article_id}/comments`, postBody)
+    .then((res)=> {
+        
+       return res.data.newComment;
     })
 }
 
