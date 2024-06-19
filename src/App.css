@@ -12,3 +12,20 @@
   justify-content: center;
   gap: 6rem;
 }
+.comments-votes {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+}
+
+.thumbs {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  gap: 2em;
+}
+
+.comment-form {
+  display: inline-flex;
+  flex-direction: column;
+}
