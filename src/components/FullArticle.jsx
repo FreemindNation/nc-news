@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { getArticles } from "../utils/api-calls";
+import { getArticles, patchArticle } from "../utils/api-calls";
 import { timeConverter } from "../utils/time-converter";
 import CommentsList from "./CommentsList";
 import Collapsible from "./Collapsible";
@@ -9,7 +9,10 @@ import { FaRegThumbsDown, FaRegThumbsUp } from "react-icons/fa";
 const FullArticle = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [article, setArticle] = useState({});
+  const [increment, setIncrement] = useState(0);
+  const [error, setError] = useState(null);
 
+   
   const { article_id } = useParams();
 
   useEffect(() => {
@@ -19,6 +22,26 @@ const FullArticle = () => {
       setIsLoading(false);
     });
   }, [article_id]);
+
+  const handleIcrements = (increment)=> {
+    setIncrement((currentVotesCount)=> {
+        return currentVotesCount + increment;
+    });
+    
+    patchArticle(article.article_id, increment)
+    .catch((err)=> {
+        setArticle((currentArticle)=>{
+            return {...currentArticle, votes: article.Votes - increment}
+            
+        })
+        setError('Oops! Something went wrong, please try again')
+    });
+
+    setArticle((currentArticle)=> {
+        return {...currentArticle, votes: article.votes + increment}
+    })
+   }
+
 
   if (isLoading) {
     return <p>Loading...</p>;
@@ -43,10 +66,11 @@ const FullArticle = () => {
           <div className="comments-votes">
             <p>Votes: {article.votes}</p>
             <div className="thumbs">
-                <button id='thumb-up'>
+                {error ? <p>{error}</p> : null}
+                <button id='thumb-up' onClick={()=> handleIcrements(1)}>
                     <FaRegThumbsUp />
                 </button>
-                <button id="thumb-down">
+                <button id="thumb-down" onClick={()=> handleIcrements(-1)}>
                     <FaRegThumbsDown />
                 </button>
             </div>

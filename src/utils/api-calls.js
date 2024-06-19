@@ -27,6 +27,15 @@ export const getCommentsByArticleId = (article_id)=> {
     })
 }
 
+export const patchArticle  = (article_id, increament)=> {
+    const patchBody = {inc_vote : increament };
+
+    return ncNews.patch(`/articles/${article_id}`, patchBody)
+    .then((res)=> {
+        return res.data.updatedArticle.votes;
+    })
+}
+
 // export const getTopics = ()=> {
 //     return ncNews.get('/topics')
 //     .then((res)=> {
