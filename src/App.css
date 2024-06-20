@@ -34,3 +34,17 @@
   flex-direction: row;
   justify-content: space-evenly;
 }
+
+.nav-list {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  gap: 2rem;
+}
+
+.topic-list {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  gap: 4rem;
+}
