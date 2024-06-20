@@ -6,15 +6,17 @@ const ncNews = axios.create({
 });
 
 
-export const getArticles = (article_id)=> {
+export const getArticles = (article_id, topic)=> {
+    const params = {};
+
     if(article_id) {
-        return ncNews.get(`/articles/${article_id}`, )
-    .then((res)=> {
-        return res.data;
-    });
+        params.article_id = article_id;
     }
+     if(topic) {
+        params.topic = topic;
+     }
     
-    return ncNews.get('/articles/', )
+    return ncNews.get('/articles', { params })
     .then((res)=> {
         return res.data;
     });
@@ -52,9 +54,9 @@ export const deleteComment= (comment_id)=> {
     return ncNews.delete(`/comments/${comment_id}`)
 }
 
-// export const getTopics = ()=> {
-//     return ncNews.get('/topics')
-//     .then((res)=> {
-//         // console.log(res.data);
-//     })
-// }
+export const getTopics = ()=> {
+    return ncNews.get('/topics')
+    .then((res)=> {
+        return res.data;
+    })
+}

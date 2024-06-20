@@ -17,7 +17,7 @@ const FullArticle = () => {
 
   useEffect(() => {
     setIsLoading(true);
-    getArticles(article_id).then((res) => {
+    getArticles(article_id, null).then((res) => {
       setArticle(res.article);
       setIsLoading(false);
     });
