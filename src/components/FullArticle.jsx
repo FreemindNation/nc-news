@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { getArticles, patchArticle } from "../utils/api-calls";
+import { getArticleById, getArticles, patchArticle } from "../utils/api-calls";
 import { timeConverter } from "../utils/time-converter";
 import CommentsList from "./CommentsList";
 import Collapsible from "./Collapsible";
@@ -12,14 +12,18 @@ const FullArticle = () => {
   const [increment, setIncrement] = useState(0);
   const [error, setError] = useState(null);
 
-   
+  
   const { article_id } = useParams();
 
   useEffect(() => {
     setIsLoading(true);
-    getArticles(article_id, null).then((res) => {
+    getArticleById(article_id).then((res) => {
+        console.log(res.article);
       setArticle(res.article);
       setIsLoading(false);
+    })
+    .catch((err)=> {
+        console.log(err, '<<<<error');
     });
   }, [article_id]);
 
@@ -41,10 +45,14 @@ const FullArticle = () => {
         return {...currentArticle, votes: article.votes + increment}
     })
    }
-
+   
 
   if (isLoading) {
-    return <p>Loading...</p>;
+    return <p>Loading article...</p>;
+  }
+
+  if(!article) {
+    return <p>Article not found!</p>
   }
 
   return (
