@@ -28,7 +28,7 @@ const CommentCard = ({ comment, comments, setComments, article, setArticle, inde
         })
     }
     return (
-        <Card style={{width: '30em'}}>
+        <Card style={{width: '18em'}}>
             <Card.Body>
                 <Card.Text>
                     {comment.body}

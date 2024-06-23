@@ -71,6 +71,9 @@ const ArticlesList = () => {
           </select>
         </label>
       </section>
+      <br />
+      <br />
+      <br />
       <section>
         {isLoading ? (
           <p> Loading articles...</p>

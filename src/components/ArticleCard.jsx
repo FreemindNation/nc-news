@@ -7,24 +7,19 @@ const ArticleCard = ({ article }) => {
 
   return (
     <Link to={`/articles/${article.article_id}`}>
-      <Card key={article.article_id} style={{ width: "18rem" }}>
+      <Card key={article.article_id} style={{ width: "18rem" }} className="mb-3 article-card">
         <Card.Img
+        className=""
           variant="top"
           src={article.article_img_url}
           alt="Image of the article"
         />
         <Card.Body>
-          <Card.Title>
-            <strong>Title:</strong> {article.title}
-          </Card.Title>
-          <Card.Text>
-            <strong>Author:</strong> {article.author}
-          </Card.Text>
-          <Card.Text>
-            <strong>Topic:</strong> {article.topic}
-          </Card.Text>
-          <Card.Text>
-            <strong>Comments:</strong> {article.comment_count}
+          <Card.Text className="flush">
+            <strong>Title:</strong> {article.title} <br />
+            <strong>Author:</strong> {article.author} <br />
+            <strong>Topic:</strong> {article.topic} <br />
+            <strong>Comments:</strong> {article.comment_count} <br />
           </Card.Text>
           <Card.Text className="mb-2 text-muted">
             {timeConverter(article.created_at)}

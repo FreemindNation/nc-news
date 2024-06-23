@@ -9,6 +9,7 @@ import FullArticle from './components/FullArticle';
 import Layout from './components/Layout';
 import ErrorPage from './components/ErrorPage';
 import { ErrorProvider } from './contexts/ErrorContext';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 
 const App = () => {
