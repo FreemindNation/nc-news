@@ -1,29 +1,32 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import { useParams } from "react-router-dom";
-import { getArticleById, getArticles, patchArticle } from "../utils/api-calls";
+import { getArticleById, patchArticle } from "../utils/api-calls";
 import { timeConverter } from "../utils/time-converter";
 import CommentsList from "./CommentsList";
 import Collapsible from "./Collapsible";
 import { FaRegThumbsDown, FaRegThumbsUp } from "react-icons/fa";
+import ErrorComponent from "./ErrorComponent"
+import { ErrorContext } from "../contexts/ErrorContext"
 
 const FullArticle = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [article, setArticle] = useState({});
   const [increment, setIncrement] = useState(0);
-  const [error, setError] = useState(null);
-
+  const { error, setError } = useContext(ErrorContext);
+  const [voteError, setVoteError] = useState(null)
+  const [hasVotedUp, setHasVotedUp] = useState(false);
+  const [hasVotedDown, setHasVotedDown] = useState(false);
   
   const { article_id } = useParams();
 
   useEffect(() => {
     setIsLoading(true);
     getArticleById(article_id).then((res) => {
-        console.log(res.article);
       setArticle(res.article);
       setIsLoading(false);
     })
     .catch((err)=> {
-        console.log(err, '<<<<error');
+        setError({ err });
     });
   }, [article_id]);
 
@@ -31,28 +34,33 @@ const FullArticle = () => {
     setIncrement((currentVotesCount)=> {
         return currentVotesCount + increment;
     });
-    
+    if(increment === 1) {
+      setHasVotedUp(true);
+      setHasVotedDown(false);
+    }else {
+      setHasVotedDown(true);
+      setHasVotedUp(false);
+    }
     patchArticle(article.article_id, increment)
     .catch((err)=> {
         setArticle((currentArticle)=>{
             return {...currentArticle, votes: article.Votes - increment}
             
         })
-        setError('Oops! Something went wrong, please try again')
+        setVoteError('Oops! Something went wrong, please refresh the page and try again')
     });
 
     setArticle((currentArticle)=> {
         return {...currentArticle, votes: article.votes + increment}
     })
    }
-   
+
+   if(error) {
+    return <ErrorComponent message={error} />
+  }
 
   if (isLoading) {
     return <p>Loading article...</p>;
-  }
-
-  if(!article) {
-    return <p>Article not found!</p>
   }
 
   return (
@@ -74,11 +82,11 @@ const FullArticle = () => {
           <div className="comments-votes">
             <p>Votes: {article.votes}</p>
             <div className="thumbs">
-                {error ? <p>{error}</p> : null}
-                <button id='thumb-up' onClick={()=> handleIcrements(1)}>
+                {voteError ? <p>{voteError}</p> : null}
+                <button id='thumb-up' onClick={()=> handleIcrements(1)} disabled={hasVotedUp}>
                     <FaRegThumbsUp />
                 </button>
-                <button id="thumb-down" onClick={()=> handleIcrements(-1)}>
+                <button id="thumb-down" onClick={()=> handleIcrements(-1)} disabled={hasVotedDown}>
                     <FaRegThumbsDown />
                 </button>
             </div>

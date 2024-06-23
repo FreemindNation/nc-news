@@ -6,9 +6,9 @@ import Login from './components/Login';
 import ArticlesList from './components/ArticlesList';
 import { UserProvider } from './contexts/UserContext';
 import FullArticle from './components/FullArticle';
-import NavBar from './components/NavBar';
 import Layout from './components/Layout';
-
+import ErrorPage from './components/ErrorPage';
+import { ErrorProvider } from './contexts/ErrorContext';
 
 
 const App = () => {
@@ -16,17 +16,20 @@ const App = () => {
 
   return (
     <UserProvider>
-      <BrowserRouter>
-        <Header />
-        <Routes>
-          <Route path='/' element={<Login />} />
-          <Route element={<Layout/>}>
-            <Route path='/articles/' element={<ArticlesList />} />
-            <Route path='/articles/:article_id' element={<FullArticle />} />
-            <Route path='/topics/:slug' element={<ArticlesList />}/>
-          </Route>
-        </Routes>
-      </BrowserRouter>
+      <ErrorProvider>
+        <BrowserRouter>
+          <Header />
+          <Routes>
+            <Route path='/' element={<Login />} />
+            <Route path='*' element={<ErrorPage />}/>
+            <Route element={<Layout/>}>
+              <Route path='/articles/' element={<ArticlesList />} />
+              <Route path='/articles/:article_id' element={<FullArticle />} />
+              <Route path='/topics/:slug' element={<ArticlesList />}/>
+            </Route>
+          </Routes>
+        </BrowserRouter>
+      </ErrorProvider>
     </UserProvider>
   )
 }

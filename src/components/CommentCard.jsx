@@ -6,21 +6,25 @@ import { deleteComment } from "../utils/api-calls";
 const CommentCard = ({ comment, comments, setComments, article, setArticle, index })=> {
 
     const { user, setUser } = useContext(UserContext);
-    const [error, setError] = useState(null);
+    const [isDeletingComment, setIsDeletingComment] = useState(false);
 
     const handleDelete= ()=> {
-        const updatedComments = [...comments]
+        setIsDeletingComment(true);
+        
+        deleteComment(comment.comment_id)
+        .then(()=> {
+            const updatedComments = [...comments]
         updatedComments.splice(index, 1)
         setComments(updatedComments);
         setArticle((currentArticle)=> {
             return {...currentArticle, comment_count: article.comment_count - 1}
         })
-        deleteComment(comment.comment_id)
+            alert('Comment deleted successfully!');
+            setIsDeletingComment(false);
+        })
         .catch((err)=> {
-            setError('Something went wrong, please try again');
-            setArticle((currentArticle)=> {
-                return {...currentArticle, comment_count: article.comment_count - 1}
-            })
+            alert('Failed to delete comment. Please try again later');
+            setIsDeletingComment(false);
         })
     }
     return (
@@ -34,9 +38,7 @@ const CommentCard = ({ comment, comments, setComments, article, setArticle, inde
                 <small className="text=muted">By {comment.author} on {timeConverter(comment.created_at)}</small>
                 <small>Votes: {comment.votes}</small>
             </Card.Footer>
-            {user === comment.author ? <button onClick={handleDelete}>
-                Delete comment
-            </button> : null}
+            {user === comment.author ? <button onClick={handleDelete} disabled={isDeletingComment}>{isDeletingComment ? 'Deleting comment...' : 'Delete comment'}</button> : null}
         </Card>
 
     )
