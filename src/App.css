@@ -3,8 +3,9 @@
   margin: 0 auto;
   padding: 2rem;
   text-align: center;
-  color:azure;
-  background-color: rgb(10, 48, 92);
+  color:rgb(12, 17, 17);
+  background-color: azure;
+  /* background-color: rgb(10, 48, 92); */
 }
 
 .article-grid {

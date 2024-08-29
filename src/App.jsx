@@ -15,13 +15,14 @@ import '@fontsource/roboto/400.css';
 import '@fontsource/roboto/500.css';
 import '@fontsource/roboto/700.css';
 import  Grid2  from '@mui/material/Unstable_Grid2/Grid2';
+import { Container } from '@mui/material';
 
 
 const App = () => {
    
 
   return (
-    <Grid2 container spacing={2}>
+    <Container maxWidth='sm'>
       <UserProvider>
         <ErrorProvider>
           <BrowserRouter>
@@ -38,7 +39,7 @@ const App = () => {
           </BrowserRouter>
         </ErrorProvider>
       </UserProvider>
-    </Grid2>
+    </Container>
   )
 }
 
