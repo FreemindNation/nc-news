@@ -3,7 +3,7 @@ import { timeConverter } from "../utils/time-converter";
 import { UserContext } from "../contexts/UserContext";
 import { useContext, useState } from "react";
 import { deleteComment } from "../utils/api-calls";
-import { Divider, Paper  } from "@mui/material";
+import { Divider, Paper, Button  } from "@mui/material";
 import Grid2 from "@mui/material/Unstable_Grid2/Grid2";
 
 const CommentCard = ({ comment, comments, setComments, article, setArticle, index })=> {
@@ -40,7 +40,7 @@ const CommentCard = ({ comment, comments, setComments, article, setArticle, inde
                     <p style={{ textAlign: "left", color: "gray" }}>Votes: {comment.votes}</p>
                 </Grid2>
             </Grid2>
-            {user === comment.author ? <button onClick={handleDelete} disabled={isDeletingComment}>{isDeletingComment ? 'Deleting comment...' : 'Delete comment'}</button> : null}
+            {user === comment.author ? <Button variant="outlined" size="small" onClick={handleDelete} disabled={isDeletingComment}>{isDeletingComment ? 'Deleting comment...' : 'Delete comment'}</Button> : null}
             <Divider variant="fullWidth" style={{ margin: "10px 0", border: '1px solid black' }} />
         </Paper>
 
