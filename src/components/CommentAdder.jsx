@@ -2,7 +2,7 @@ import { useState, useContext } from "react";
 import { UserContext } from "../contexts/UserContext";
 import { postComment } from "../utils/api-calls";
 import { ErrorContext } from "../contexts/ErrorContext";
-import { Button, FormControl, FormLabel } from "@mui/material";
+import { Button, FormControl, FormLabel, TextField } from "@mui/material";
 
 const CommentAdder = ({ article, setArticle, setComments, commentsError }) => {
   const { user, setUser } = useContext(UserContext);
@@ -48,12 +48,16 @@ const CommentAdder = ({ article, setArticle, setComments, commentsError }) => {
       <br/>
       {commentsError ? null : (
         <>
-          <FormControl action="" className="comment-form" onSubmit={handleSubmit}>
-            <label htmlFor="new-comment">Comment below:</label>
-            <textarea
+          <form action="" className="comment-form" onSubmit={handleSubmit}>
+            <TextField
               value={newComment}
-              multiline="true"
+              fullWidth
+              multiline
+              minRows={3}
+              maxRows={20}
               id="new-comment"
+              variant="outlined"
+              label='Comment below'
               placeholder="what's your thought?"
               onChange={handleChange}
               required
@@ -61,7 +65,7 @@ const CommentAdder = ({ article, setArticle, setComments, commentsError }) => {
             <Button variant="outlined" size="small" type="submit" disabled={isPosting}>
               {isPosting ? "Posting comment..." : "Add comment"}
             </Button>
-          </FormControl>
+          </form>
           <br />
         </>
       )}

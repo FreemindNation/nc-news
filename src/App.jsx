@@ -22,7 +22,7 @@ const App = () => {
    
 
   return (
-    <Container maxWidth='sm'>
+    <Container>
       <UserProvider>
         <ErrorProvider>
           <BrowserRouter>

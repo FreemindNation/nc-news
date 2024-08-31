@@ -1,9 +1,11 @@
 import Grid2 from "@mui/material/Unstable_Grid2/Grid2";
+import { Divider, Stack } from "@mui/material";
 const Header = ()=> {
     return (
-        <Grid2 container wrap="wrap">
+        <Stack container wrap="wrap">
             <h1>NC News</h1>
-        </Grid2>
+            <Divider variant="fullWidth" style={{ margin: "10px 0", border: '5px solid blue' }} />
+        </Stack>
     )
 }
 

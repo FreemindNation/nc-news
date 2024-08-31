@@ -4,7 +4,7 @@
   padding: 2rem;
   text-align: center;
   color:rgb(12, 17, 17);
-  background-color: azure;
+  /* background-color: #90e0ef; */
   /* background-color: rgb(10, 48, 92); */
 }
 
@@ -32,10 +32,10 @@
   gap: 2em;
 }
 
-.comment-form {
+/* .comment-form {
   display: inline-flex;
   flex-direction: column;
-}
+} */
 .card-footer {
   display: flex;
   flex-direction: row;
