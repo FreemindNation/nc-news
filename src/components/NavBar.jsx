@@ -4,6 +4,7 @@ import { UserContext } from "../contexts/UserContext";
 import { capitaliseFirstLetter } from "../utils/capitalise-first-letter";
 import { Link } from "react-router-dom";
 import { ErrorContext } from "../contexts/ErrorContext";
+import { Box, Typography, Tooltip } from "@mui/material";
 
 const NavBar = () => {
   const [topics, setTopics] = useState([]);
@@ -29,20 +30,21 @@ const NavBar = () => {
   }
 
   return (
-    <nav className="nav-list">
-      <section className="topic-list">
+    
+      <Box sx={{ display: 'flex', alignItems: 'center', textAlign: 'center' }} >
         {topics.map((topic) => {
           return (
-            <Link to={`/topics/${topic.slug}`} key={topic.slug}>
-              {capitaliseFirstLetter(topic.slug)}
-            </Link>
+            <Tooltip title={`View ${topic.slug} articles`} key={topic.slug}>
+              <Typography sx={{ minWidth: 100, my: 3 }} color='primary' >
+                <Link to={`/topics/${topic.slug}`} className="topic-list" key={topic.slug}>
+                  {capitaliseFirstLetter(topic.slug)}
+                </Link>
+              </Typography>
+            </Tooltip>
           );
         })}
-      </section>
-      <section>
-        <p>Logged in as {user}</p>
-      </section>
-    </nav>
+      </Box>
+    
   );
 };
 

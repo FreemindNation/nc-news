@@ -55,6 +55,7 @@ const CommentAdder = ({ article, setArticle, setComments, commentsError }) => {
               multiline
               minRows={3}
               maxRows={20}
+              sx={{ my: 3 }}
               id="new-comment"
               variant="outlined"
               label='Comment below'
@@ -66,7 +67,6 @@ const CommentAdder = ({ article, setArticle, setComments, commentsError }) => {
               {isPosting ? "Posting comment..." : "Add comment"}
             </Button>
           </form>
-          <br />
         </>
       )}
     </section>

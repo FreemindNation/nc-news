@@ -4,7 +4,7 @@ import ArticleCard from "./ArticleCard";
 import { useParams, useSearchParams, useNavigate } from "react-router-dom";
 import ErrorComponent from "./ErrorComponent";
 import { ErrorContext } from "../contexts/ErrorContext";
-
+import { MenuItem, TextField, FormControl } from "@mui/material";
 
 
 
@@ -45,35 +45,36 @@ const ArticlesList = () => {
 
   return (
     <section>
-      <h2>Articles</h2>
+      <h3>Articles</h3>
       <section>
-        <label htmlFor="sortBy">
-          Sort by:
-          <select
+        <FormControl variant="standard" color="secondary" sx={{m: 3}} htmlFor="sortBy">
+          <TextField
+            id="sort-by"
+            label="Sort by:"
+            select
             value={sortBy}
             onChange={(event) => handleSortChange(event.target.value)}
           >
-            <option value="created_at">Date</option>
-            <option value="comment_count">Comment Count</option>
-            <option value="votes">Votes</option>
-          </select>
-        </label>
-        <label htmlFor="order">
-          Order:
-          <select
+            <MenuItem value="created_at">Date</MenuItem>
+            <MenuItem value="comment_count">Comment Count</MenuItem>
+            <MenuItem value="votes">Votes</MenuItem>
+          </TextField>
+        </FormControl>
+        <FormControl variant="filled" sx={{m: 3}} htmlFor="order">
+          <TextField
+            id="order"
+            label="Order"
+            select
             value={order}
             onChange={(event) => {
               handleOrderChange(event.target.value);
             }}
           >
-            <option value="asc">Ascending</option>
-            <option value="desc">Descending</option>
-          </select>
-        </label>
+            <MenuItem value="asc">Ascending</MenuItem>
+            <MenuItem value="desc">Descending</MenuItem>
+          </TextField>
+        </FormControl>
       </section>
-      <br />
-      <br />
-      <br />
       <section>
         {isLoading ? (
           <p> Loading articles...</p>

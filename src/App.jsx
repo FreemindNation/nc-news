@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import './App.css';
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import Header from './components/Header';
@@ -14,7 +13,6 @@ import '@fontsource/roboto/300.css';
 import '@fontsource/roboto/400.css';
 import '@fontsource/roboto/500.css';
 import '@fontsource/roboto/700.css';
-import  Grid2  from '@mui/material/Unstable_Grid2/Grid2';
 import { Container } from '@mui/material';
 
 
