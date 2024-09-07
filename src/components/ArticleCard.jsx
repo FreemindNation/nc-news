@@ -14,22 +14,15 @@ const ArticleCard = ({ article }) => {
               variant="top"
               sx={{ height: 180 }}
               image={article.article_img_url}
-              // alt="Image of the article"
+              alt="Image of the article"
             />
             <CardContent>
               <Typography variant="body2" style={{ fontWeight:'500' }}>
                 {article.title}
-                {/* <strong>{article.title}</strong> <br /> */}
-                {/* <strong>Author:</strong> {article.author} <br />
-                <strong>Topic:</strong> {article.topic} <br />
-                <strong>Comments:</strong> {article.comment_count} <br /> */}
               </Typography>
               <Typography sx={{mt: 1, mr: 15, color:'gray' }}>
-                <small>By {article.author}</small>
+                <small><strong>- {article.author}</strong></small>
               </Typography>
-              {/* <Card.Text className="mb-2 text-muted">
-                {timeConverter(article.created_at)}
-              </Card.Text> */}
             </CardContent>
           </CardActionArea>
         </Card>

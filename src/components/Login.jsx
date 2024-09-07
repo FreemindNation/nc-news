@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import { UserContext } from "../contexts/UserContext"
 import { useContext } from "react";
-import { Button, TextField, Typography } from "@mui/material";
+import { Button, TextField, Typography, Container } from "@mui/material";
 
 
 const Login = ()=> {
@@ -21,8 +21,8 @@ const Login = ()=> {
 
     return (
         <>
-            <section>
-                <p>Please log in using the preset username below:</p>
+            <Typography sx={{height: '100vh'}}>
+                <Typography variant="h3">Please log in using the preset username below:</Typography>
                 <p>Username: <strong>'weegembump'</strong></p>
                 <form action="" className="login" onSubmit={handleSubmit}>
                     <TextField
@@ -39,7 +39,7 @@ const Login = ()=> {
                     />
                     <Button variant="outlined" color="primary" type="submit">Log in</Button>
                 </form>
-            </section>
+            </Typography>
         </>
     )
 

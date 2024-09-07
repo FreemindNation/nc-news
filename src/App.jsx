@@ -13,14 +13,13 @@ import '@fontsource/roboto/300.css';
 import '@fontsource/roboto/400.css';
 import '@fontsource/roboto/500.css';
 import '@fontsource/roboto/700.css';
-import { Container } from '@mui/material';
-
+import { Container, Box } from '@mui/material';
+import Footer from './components/Footer';
 
 const App = () => {
    
 
   return (
-    <Container>
       <UserProvider>
         <ErrorProvider>
           <BrowserRouter>
@@ -34,10 +33,10 @@ const App = () => {
                 <Route path='/topics/:slug' element={<ArticlesList />}/>
               </Route>
             </Routes>
+            <Footer />
           </BrowserRouter>
         </ErrorProvider>
       </UserProvider>
-    </Container>
   )
 }
 

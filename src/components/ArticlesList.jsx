@@ -4,7 +4,7 @@ import ArticleCard from "./ArticleCard";
 import { useParams, useSearchParams, useNavigate } from "react-router-dom";
 import ErrorComponent from "./ErrorComponent";
 import { ErrorContext } from "../contexts/ErrorContext";
-import { MenuItem, TextField, FormControl } from "@mui/material";
+import { MenuItem, TextField, FormControl, Container } from "@mui/material";
 
 
 
@@ -75,7 +75,7 @@ const ArticlesList = () => {
           </TextField>
         </FormControl>
       </section>
-      <section>
+      <Container>
         {isLoading ? (
           <p> Loading articles...</p>
         ) : (
@@ -85,7 +85,7 @@ const ArticlesList = () => {
             })}
           </section>
         )}
-      </section>
+      </Container>
     </section>
   );
 };

@@ -1,13 +1,14 @@
 import { Link } from "react-router-dom";
 import { useContext } from "react";
 import { ErrorContext } from "../contexts/ErrorContext";
+import { Container } from "@mui/material";
 
 const ErrorComponent = () => {
 
     const { error, setError } = useContext(ErrorContext);
 
   return (
-    <section>
+    <Container sx={{height: '100vh'}}>
       <section>
         {!error.err.response ? (
           <section>
@@ -28,7 +29,7 @@ const ErrorComponent = () => {
         )}
       </section>
       <Link to={"/"}>Back to Home page</Link>
-    </section>
+    </Container>
   );
 };
 

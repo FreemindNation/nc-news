@@ -7,6 +7,7 @@ import Collapsible from "./Collapsible";
 import { FaRegThumbsDown, FaRegThumbsUp } from "react-icons/fa";
 import ErrorComponent from "./ErrorComponent"
 import { ErrorContext } from "../contexts/ErrorContext"
+import { Container } from "@mui/material";
 
 const FullArticle = () => {
   const [isLoading, setIsLoading] = useState(true);
@@ -65,39 +66,41 @@ const FullArticle = () => {
 
   return (
     <>
-      <section>
-        <article>
-          <header>
-            <h2>{article.title}</h2>
-            <div>
-              <address> By {article.author}</address>
-              on <time>{timeConverter(article.created_at)}</time>
+      <Container sx={{m: 2}}>
+        <section>
+          <article>
+            <header>
+              <h2>{article.title}</h2>
+              <div>
+                <address> By {article.author}</address>
+                on <time>{timeConverter(article.created_at)}</time>
+              </div>
+            </header>
+            <p>{article.body}</p>
+            <figure>
+              <img src={article.article_img_url} alt="Image of the article" />
+              <figcaption><em><small>Image relating to {article.title}</small></em></figcaption>
+            </figure>
+            <div className="comments-votes">
+              <p>Votes: {article.votes}</p>
+              <div className="thumbs">
+                  {voteError ? <p>{voteError}</p> : null}
+                  <button id='thumb-up' onClick={()=> handleIcrements(1)} disabled={hasVotedUp}>
+                      <FaRegThumbsUp />
+                  </button>
+                  <button id="thumb-down" onClick={()=> handleIcrements(-1)} disabled={hasVotedDown}>
+                      <FaRegThumbsDown />
+                  </button>
+              </div>
             </div>
-          </header>
-          <p>{article.body}</p>
-          <figure>
-            <img src={article.article_img_url} alt="Image of the article" />
-            <figcaption><em><small>Image relating to {article.title}</small></em></figcaption>
-          </figure>
-          <div className="comments-votes">
-            <p>Votes: {article.votes}</p>
-            <div className="thumbs">
-                {voteError ? <p>{voteError}</p> : null}
-                <button id='thumb-up' onClick={()=> handleIcrements(1)} disabled={hasVotedUp}>
-                    <FaRegThumbsUp />
-                </button>
-                <button id="thumb-down" onClick={()=> handleIcrements(-1)} disabled={hasVotedDown}>
-                    <FaRegThumbsDown />
-                </button>
-            </div>
-          </div>
-        </article>
-      </section> <br />
-      <section>
-        <Collapsible contentDescriptor={'comments'} commentCount={article.comment_count}>
-            <CommentsList article={article} setArticle={setArticle} />
-        </Collapsible>
-      </section>
+          </article>
+        </section> <br />
+        <section>
+          <Collapsible contentDescriptor={'comments'} commentCount={article.comment_count}>
+              <CommentsList article={article} setArticle={setArticle} />
+          </Collapsible>
+        </section>
+      </Container>
     </>
   );
 };
