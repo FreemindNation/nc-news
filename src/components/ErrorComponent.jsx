@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import { useContext } from "react";
 import { ErrorContext } from "../contexts/ErrorContext";
-import { Container } from "@mui/material";
+import { Container, Typography } from "@mui/material";
 
 const ErrorComponent = () => {
 
@@ -28,7 +28,9 @@ const ErrorComponent = () => {
           </section>
         )}
       </section>
-      <Link to={"/"}>Back to Home page</Link>
+      <Typography>
+        <Link to={"/"} className="topic-list">Back to Home page</Link>
+      </Typography>
     </Container>
   );
 };

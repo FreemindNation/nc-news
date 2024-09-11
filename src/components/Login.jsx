@@ -21,25 +21,27 @@ const Login = ()=> {
 
     return (
         <>
-            <Typography sx={{height: '100vh'}}>
-                <Typography variant="h3">Please log in using the preset username below:</Typography>
-                <p>Username: <strong>'weegembump'</strong></p>
-                <form action="" className="login" onSubmit={handleSubmit}>
-                    <TextField
-                        type="text"
-                        variant="outlined"
-                        color="primary"
-                        label='Username'
-                        fullWidth
-                        id='login'
-                        onChange={hanndleChange} 
-                        value={user || 'weegembump'} 
-                        sx={{mb: 3}}
-                        
-                    />
-                    <Button variant="outlined" color="primary" type="submit">Log in</Button>
-                </form>
-            </Typography>
+            <Container>
+                <Container sx={{height: '80vh', mt: 10}}>
+                    <Typography variant="h4">Please log in using the preset username below:</Typography>
+                    <p>Username: <strong>'weegembump'</strong></p>
+                    <form action="" className="login" onSubmit={handleSubmit}>
+                        <TextField
+                            type="text"
+                            variant="outlined"
+                            color="primary"
+                            label='Username'
+                            fullWidth
+                            id='login'
+                            onChange={hanndleChange}
+                            value={user || 'weegembump'}
+                            sx={{mb: 3}}
+                
+                        />
+                        <Button variant="outlined" color="primary" type="submit">Log in</Button>
+                    </form>
+                </Container>
+            </Container>
         </>
     )
 

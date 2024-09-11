@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Button } from "@mui/material";
+import { Button, Container} from "@mui/material";
 
 const Collapsible = ({ children, contentDescriptor, commentCount })=> {
 
@@ -10,12 +10,12 @@ const Collapsible = ({ children, contentDescriptor, commentCount })=> {
     }
 
     return (
-        <section>
+        <Container>
             <Button variant="outlined" color="primary" onClick={toggleIsHidden}>
                 {isHidden ? 'hide' : 'Show'} {contentDescriptor} ({commentCount})
             </Button>
             {isHidden ? children : null}
-        </section>
+        </Container>
     );
 
 

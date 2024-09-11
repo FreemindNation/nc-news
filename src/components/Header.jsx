@@ -1,22 +1,45 @@
 import { UserContext } from "../contexts/UserContext";
 import { useContext } from "react";
 import { Typography } from "@mui/material";
-import { Divider, Stack, AppBar, CssBaseline } from "@mui/material";
-const Header = ()=> {
+import {
+  Divider,
+  Stack,
+  AppBar,
+  Tooltip,
+  Toolbar,
+  Container,
+  Box,
+} from "@mui/material";
+import AccountCircleIcon from "@mui/icons-material/AccountCircle";
+import Grid2 from "@mui/material/Unstable_Grid2/Grid2";
+import PublicIcon from "@mui/icons-material/Public";
 
-    const { user, setUser } = useContext(UserContext);
+const Header = () => {
+  const { user, setUser } = useContext(UserContext);
 
-    return (
-        <AppBar position="relative" sx={{m: 0, p: 0, bgcolor:'#0C234A' }}>
-            <Stack container wrap="wrap" sx={{bgcolor: '#0D46A1'}}>
-                <Typography variant='h2' >NC News</Typography>
-                { user ? <Typography sx={{ml: 30, color: 'gray'}} fontSize={15} >
-            <small>Logged in as {user}</small>
-                  </Typography> : null }
-                <Divider variant="fullWidth" style={{ margin: "20px 0", border: '2px solid #0D46A1' }} />
-            </Stack>
-        </AppBar>
-    )
-}
+  return (
+    <Box sx={{ flexGrow: 1 }}>
+      <AppBar position="static">
+        <Toolbar>
+          <Stack direction="row" spacing={0.5} sx={{ flexGrow: 1 }}>
+            <Typography variant="h2" sx={{ m: 2 }}>
+              NC
+            </Typography>
+            <PublicIcon fontSize="large" />
+            <Typography variant="h2">News</Typography>
+          </Stack>
+          {user ? (
+            <Tooltip title={`Logged in as ${user}`}>
+              <Grid2 container spacing={1} >
+                <AccountCircleIcon />
+                <small>{user}</small>
+              </Grid2>
+            </Tooltip>
+          ) : null}
+        </Toolbar>
+      </AppBar>
+    </Box>
+  );
+};
 
 export default Header;

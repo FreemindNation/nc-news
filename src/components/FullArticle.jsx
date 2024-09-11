@@ -7,7 +7,7 @@ import Collapsible from "./Collapsible";
 import { FaRegThumbsDown, FaRegThumbsUp } from "react-icons/fa";
 import ErrorComponent from "./ErrorComponent"
 import { ErrorContext } from "../contexts/ErrorContext"
-import { Container } from "@mui/material";
+import { Container, Box } from "@mui/material";
 
 const FullArticle = () => {
   const [isLoading, setIsLoading] = useState(true);
@@ -66,7 +66,7 @@ const FullArticle = () => {
 
   return (
     <>
-      <Container sx={{m: 2}}>
+      <Container sx={{m: 4, minHeight: '100vh'}} fixed>
         <section>
           <article>
             <header>
@@ -78,7 +78,17 @@ const FullArticle = () => {
             </header>
             <p>{article.body}</p>
             <figure>
-              <img src={article.article_img_url} alt="Image of the article" />
+              <Box
+              component='img'
+              sx={{
+                height: 233,
+                width: 350,
+                maxHeight: { xs: 233, md: 167 },
+                maxWidth: { xs: 350, md: 250 },
+              }}
+              src={article.article_img_url} 
+              alt={`Image relating to ${article.topic}`} 
+              />
               <figcaption><em><small>Image relating to {article.title}</small></em></figcaption>
             </figure>
             <div className="comments-votes">
