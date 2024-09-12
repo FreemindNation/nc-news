@@ -4,7 +4,7 @@ import ArticleCard from "./ArticleCard";
 import { useParams, useSearchParams, useNavigate } from "react-router-dom";
 import ErrorComponent from "./ErrorComponent";
 import { ErrorContext } from "../contexts/ErrorContext";
-import { MenuItem, TextField, FormControl, Container } from "@mui/material";
+import { MenuItem, TextField, FormControl, Container, Typography } from "@mui/material";
 
 
 
@@ -45,9 +45,9 @@ const ArticlesList = () => {
 
   return (
     <section>
-      <h3>Articles</h3>
+      <Typography variant="h1" fontWeight="400"> Articles</Typography>
       <section>
-        <FormControl variant="standard" color="secondary" sx={{m: 3}} htmlFor="sortBy">
+        <FormControl sx={{m: 3,}} htmlFor="sortBy">
           <TextField
             id="sort-by"
             label="Sort by:"
@@ -55,12 +55,12 @@ const ArticlesList = () => {
             value={sortBy}
             onChange={(event) => handleSortChange(event.target.value)}
           >
-            <MenuItem value="created_at">Date</MenuItem>
+            <MenuItem value="created_at" >Date</MenuItem>
             <MenuItem value="comment_count">Comment Count</MenuItem>
             <MenuItem value="votes">Votes</MenuItem>
           </TextField>
         </FormControl>
-        <FormControl variant="filled" sx={{m: 3}} htmlFor="order">
+        <FormControl sx={{m: 3}} htmlFor="order">
           <TextField
             id="order"
             label="Order"
@@ -77,7 +77,7 @@ const ArticlesList = () => {
       </section>
       <Container>
         {isLoading ? (
-          <p> Loading articles...</p>
+          <Typography textAlign="center"> Loading articles...</Typography>
         ) : (
           <section className="article-grid">
             {articles.map((article) => {
