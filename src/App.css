@@ -9,14 +9,11 @@ html {
 }
 
 #root {
-  /* max-width: 1280px; */
   box-sizing: border-box;
   margin: 0 auto;
   padding-left: 0;
   text-align: center;
   color: #143362;
-  /* background-color: #64B4F6; */
-  /* background-color: rgb(10, 48, 92); */
 }
 
 .article-grid {

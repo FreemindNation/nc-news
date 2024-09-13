@@ -1,7 +1,6 @@
 import './App.css';
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import Header from './components/Header';
-import Login from './components/Login';
 import ArticlesList from './components/ArticlesList';
 import { UserProvider } from './contexts/UserContext';
 import FullArticle from './components/FullArticle';

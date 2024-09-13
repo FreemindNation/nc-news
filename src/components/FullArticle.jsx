@@ -66,7 +66,7 @@ const FullArticle = () => {
 
   return (
     <>
-      <Container sx={{m: 4, minHeight: '100vh'}} fixed>
+      <Container sx={{ height: '100vh'}} fixed>
         <section>
           <article>
             <header>
@@ -81,10 +81,8 @@ const FullArticle = () => {
               <Box
               component='img'
               sx={{
-                height: 233,
-                width: 350,
-                maxHeight: { xs: 233, md: 167 },
-                maxWidth: { xs: 350, md: 250 },
+                maxHeight: { xs: 233, md: 350 },
+                maxWidth: { xs: 350, md: 400 },
               }}
               src={article.article_img_url} 
               alt={`Image relating to ${article.topic}`} 
