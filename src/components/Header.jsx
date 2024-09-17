@@ -2,12 +2,10 @@ import { UserContext } from "../contexts/UserContext";
 import { useContext } from "react";
 import { Typography } from "@mui/material";
 import {
-  Divider,
   Stack,
   AppBar,
   Tooltip,
   Toolbar,
-  Container,
   Box,
 } from "@mui/material";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";

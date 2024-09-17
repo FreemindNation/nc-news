@@ -13,7 +13,7 @@ html {
   margin: 0 auto;
   padding-left: 0;
   text-align: center;
-  color: #143362;
+  color: #333333;
 }
 
 .article-grid {
@@ -31,26 +31,27 @@ html {
   display: flex;
   flex-direction: row;
   justify-content: space-evenly;
+  align-items: flex-start;
 }
 
 .thumbs {
   display: flex;
   flex-direction: row;
   justify-content: space-evenly;
+  align-items: center;
   gap: 2em;
 }
 
 .topic-list {
   text-decoration: none;
-  color: #143362;
 }
 
 .topic-list:hover {
   color: black;
-  background-color: #BBDEFB;
-  padding: 1rem 0.5rem;
+  text-decoration: underline;
   border-radius: 5px;
 }
 .icon:hover {
   color: #BBDEFB;
+  text-decoration: underline;
 }

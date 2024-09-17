@@ -31,7 +31,6 @@ const App = () => {
                 <Route path='/topics/:slug' element={<ArticlesList />}/>
               </Route>
             </Routes>
-            <Footer />
           </BrowserRouter>
         </ErrorProvider>
       </UserProvider>

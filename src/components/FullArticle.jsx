@@ -7,7 +7,7 @@ import Collapsible from "./Collapsible";
 import { FaRegThumbsDown, FaRegThumbsUp } from "react-icons/fa";
 import ErrorComponent from "./ErrorComponent"
 import { ErrorContext } from "../contexts/ErrorContext"
-import { Container, Box } from "@mui/material";
+import { Container, Box, Typography } from "@mui/material";
 
 const FullArticle = () => {
   const [isLoading, setIsLoading] = useState(true);
@@ -61,34 +61,35 @@ const FullArticle = () => {
   }
 
   if (isLoading) {
-    return <p>Loading article...</p>;
+    return <Typography variant="body1" color="primary" sx={{ my: 20 }}>Loading article...</Typography>;
   }
 
   return (
     <>
-      <Container sx={{ height: '100vh'}} fixed>
+      <Container sx={{ textAlign:'left', flexGrow: 1, my: 5}} >
         <section>
           <article>
             <header>
-              <h2>{article.title}</h2>
-              <div>
-                <address> By {article.author}</address>
-                on <time>{timeConverter(article.created_at)}</time>
-              </div>
+              <Typography variant="h2" sx={{ fontWeight: 500 }}>{article.title}</Typography>
+              <Box component="div" sx={{ mb: 2 }} >
+                <Typography variant="body2" sx={{ color:'gray', fontWeight: 500 }}> - {article.author}</Typography>
+                 <Typography variant="body2" sx={{ color:'gray', fontWeight: 500 }}> - {timeConverter(article.created_at)}</Typography>
+              </Box>
             </header>
-            <p>{article.body}</p>
             <figure>
               <Box
               component='img'
               sx={{
-                maxHeight: { xs: 233, md: 350 },
-                maxWidth: { xs: 350, md: 400 },
+                maxHeight: { xs: 333, md: 450 },
+                maxWidth: { xs: 450, md: 500 },
               }}
               src={article.article_img_url} 
               alt={`Image relating to ${article.topic}`} 
               />
               <figcaption><em><small>Image relating to {article.title}</small></em></figcaption>
             </figure>
+            <p>{article.body}</p>
+            
             <div className="comments-votes">
               <p>Votes: {article.votes}</p>
               <div className="thumbs">

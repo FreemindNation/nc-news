@@ -12,7 +12,7 @@ const Collapsible = ({ children, contentDescriptor, commentCount })=> {
     return (
         <Container>
             <Button variant="outlined" color="primary" onClick={toggleIsHidden}>
-                {isHidden ? 'hide' : 'Show'} {contentDescriptor} ({commentCount})
+                {isHidden ? 'Hide' : 'Show'} {contentDescriptor} ({commentCount})
             </Button>
             {isHidden ? children : null}
         </Container>

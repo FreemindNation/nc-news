@@ -8,23 +8,23 @@ const ErrorComponent = () => {
     const { error, setError } = useContext(ErrorContext);
 
   return (
-    <Container sx={{height: '100vh'}}>
+    <Container sx={{height: '100vh', flexDirection:'row'}}>
       <section>
         {!error.err.response ? (
           <section>
-            <h2>
+            <Typography variant="h3" color="error">
               Oops! Something went wrong with the network! please try again
               later.
-            </h2>
+            </Typography>
           </section>
         ) : (
           <section>
-            <h1>{error.err.response.status} Error!!</h1>
-            <h2>{error.err.response.data.msg}</h2>
-            <p>
+            <Typography variant="h1" color="error">{error.err.response.status} Error!!</Typography>
+            <Typography variant="h2" color="error">{error.err.response.data.msg}</Typography>
+            <Typography variant="body1" color="error">
               Sorry, we can't find the page you are looking for. Please check
               the URL and try again.
-            </p>
+            </Typography>
           </section>
         )}
       </section>

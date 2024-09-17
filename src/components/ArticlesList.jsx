@@ -45,7 +45,7 @@ const ArticlesList = () => {
 
   return (
     <section>
-      <Typography variant="h1" fontWeight="400"> Articles</Typography>
+      <Typography variant="h1" fontWeight="500"> Articles</Typography>
       <section>
         <FormControl sx={{m: 3,}} htmlFor="sortBy">
           <TextField
