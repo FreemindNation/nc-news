@@ -1,26 +1,21 @@
 import { useState } from "react";
-import { Button, Container} from "@mui/material";
+import { Button, Container } from "@mui/material";
 
-const Collapsible = ({ children, contentDescriptor, commentCount })=> {
+const Collapsible = ({ children, contentDescriptor, commentCount }) => {
+  const [isHidden, setIsHidden] = useState(false);
 
-    const [isHidden, setIsHidden] = useState(false);
+  const toggleIsHidden = () => {
+    setIsHidden(!isHidden);
+  };
 
-    const toggleIsHidden = ()=> {
-        setIsHidden(!isHidden);
-    }
-
-    return (
-        <Container>
-            <Button variant="outlined" color="primary" onClick={toggleIsHidden}>
-                {isHidden ? 'Hide' : 'Show'} {contentDescriptor} ({commentCount})
-            </Button>
-            {isHidden ? children : null}
-        </Container>
-    );
-
-
+  return (
+    <Container component="section">
+      <Button variant="contained" color="primary" onClick={toggleIsHidden}>
+        {isHidden ? "Hide" : "Show"} {contentDescriptor} ({commentCount})
+      </Button>
+      {isHidden ? children : null}
+    </Container>
+  );
 };
-
-
 
 export default Collapsible;

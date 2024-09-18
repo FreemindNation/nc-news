@@ -1,6 +1,6 @@
 import NavBar from "./NavBar";
 import { Outlet } from "react-router-dom";
-import { Box, Container, Typography } from "@mui/material";
+import { Box, Container } from "@mui/material";
 import Footer from "./Footer";
 
 const Layout = () => {
@@ -14,7 +14,7 @@ const Layout = () => {
     >
       <NavBar />
       <Container component="main" sx={{ flexGrow: 1 }}>
-          <Outlet />
+        <Outlet />
       </Container>
       <Footer />
     </Box>

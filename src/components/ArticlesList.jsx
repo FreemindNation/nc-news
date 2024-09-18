@@ -4,9 +4,13 @@ import ArticleCard from "./ArticleCard";
 import { useParams, useSearchParams, useNavigate } from "react-router-dom";
 import ErrorComponent from "./ErrorComponent";
 import { ErrorContext } from "../contexts/ErrorContext";
-import { MenuItem, TextField, FormControl, Container, Typography } from "@mui/material";
-
-
+import {
+  MenuItem,
+  TextField,
+  FormControl,
+  Container,
+  Typography,
+} from "@mui/material";
 
 const ArticlesList = () => {
   const [articles, setArticles] = useState([]);
@@ -22,13 +26,13 @@ const ArticlesList = () => {
     setIsLoading(true);
     getArticles(slug, sortBy, order)
       .then((res) => {
-          setArticles(res.articles);
-          setIsLoading(false);
+        setArticles(res.articles);
+        setIsLoading(false);
       })
       .catch((err) => {
-          setIsLoading(false);
-          setError({ err });
-          });
+        setIsLoading(false);
+        setError({ err });
+      });
   }, [slug, sortBy, order]);
 
   const handleSortChange = (newSortBy) => {
@@ -38,16 +42,19 @@ const ArticlesList = () => {
   const handleOrderChange = (newOrder) => {
     setSearchParams({ sort_by: sortBy, order: newOrder });
   };
-  
-  if(error) {
-    return <ErrorComponent message={error} />
+
+  if (error) {
+    return <ErrorComponent message={error} />;
   }
 
   return (
     <section>
-      <Typography variant="h1" fontWeight="500"> Articles</Typography>
+      <Typography variant="h1" fontWeight="500">
+        {" "}
+        Articles
+      </Typography>
       <section>
-        <FormControl sx={{m: 3,}} htmlFor="sortBy">
+        <FormControl sx={{ m: 3 }} htmlFor="sortBy">
           <TextField
             id="sort-by"
             label="Sort by:"
@@ -55,12 +62,12 @@ const ArticlesList = () => {
             value={sortBy}
             onChange={(event) => handleSortChange(event.target.value)}
           >
-            <MenuItem value="created_at" >Date</MenuItem>
+            <MenuItem value="created_at">Date</MenuItem>
             <MenuItem value="comment_count">Comment Count</MenuItem>
             <MenuItem value="votes">Votes</MenuItem>
           </TextField>
         </FormControl>
-        <FormControl sx={{m: 3}} htmlFor="order">
+        <FormControl sx={{ m: 3 }} htmlFor="order">
           <TextField
             id="order"
             label="Order"
@@ -77,7 +84,10 @@ const ArticlesList = () => {
       </section>
       <Container>
         {isLoading ? (
-          <Typography textAlign="center"> Loading articles...</Typography>
+          <Typography textAlign="center" color="primary">
+            {" "}
+            Loading articles...
+          </Typography>
         ) : (
           <section className="article-grid">
             {articles.map((article) => {

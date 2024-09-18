@@ -27,20 +27,6 @@ html {
   opacity: 0.9;
 
 }
-.comments-votes {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-evenly;
-  align-items: flex-start;
-}
-
-.thumbs {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-evenly;
-  align-items: center;
-  gap: 2em;
-}
 
 .topic-list {
   text-decoration: none;

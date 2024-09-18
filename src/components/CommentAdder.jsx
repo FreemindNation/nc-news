@@ -2,7 +2,7 @@ import { useState, useContext } from "react";
 import { UserContext } from "../contexts/UserContext";
 import { postComment } from "../utils/api-calls";
 import { ErrorContext } from "../contexts/ErrorContext";
-import { Button, FormControl, FormLabel, TextField } from "@mui/material";
+import { Button, TextField, Box, Typography } from "@mui/material";
 
 const CommentAdder = ({ article, setArticle, setComments, commentsError }) => {
   const { user, setUser } = useContext(UserContext);
@@ -40,12 +40,15 @@ const CommentAdder = ({ article, setArticle, setComments, commentsError }) => {
   };
 
   if (error) {
-    return <p>Sorry, unable to comment, please try again later.</p>;
+    return (
+      <Typography variant="body1">
+        Sorry, unable to comment, please try again later.
+      </Typography>
+    );
   }
 
   return (
-    <section>
-      <br/>
+    <Box component="section">
       {commentsError ? null : (
         <>
           <form action="" className="comment-form" onSubmit={handleSubmit}>
@@ -58,18 +61,24 @@ const CommentAdder = ({ article, setArticle, setComments, commentsError }) => {
               sx={{ my: 1 }}
               id="new-comment"
               variant="outlined"
-              label='Comment below'
+              label="Comment below"
               placeholder="what's your thought?"
               onChange={handleChange}
               required
             />
-            <Button variant="outlined" size="small" type="submit" sx={{mb: 3}} disabled={isPosting}>
+            <Button
+              variant="outlined"
+              size="small"
+              type="submit"
+              sx={{ mb: 3, textTransform: "none" }}
+              disabled={isPosting}
+            >
               {isPosting ? "Posting comment..." : "Post comment"}
             </Button>
           </form>
         </>
       )}
-    </section>
+    </Box>
   );
 };
 
