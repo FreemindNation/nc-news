@@ -71,7 +71,7 @@ const CommentCard = ({
             {user === comment.author ? (
               <Button
                 variant="outlined"
-                sx={{ textTransform: "none" }}
+                sx={{ textTransform: "none", mt: 2 }}
                 onClick={handleDelete}
                 disabled={isDeletingComment}
               >

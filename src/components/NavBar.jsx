@@ -31,7 +31,7 @@ const NavBar = () => {
 
   if (isLoading) {
     return (
-      <Typography variant="body1" color="primary" textAlign="left">
+      <Typography variant="body1" color="primary" textAlign="left" sx={{ mt: 3 }}>
         Loading topics...
       </Typography>
     );
