@@ -11,7 +11,7 @@ const ErrorComponent = () => {
       <section>
         {!error.err.response ? (
           <section>
-            <Typography variant="h3" color="error">
+            <Typography variant="h3" color="error" sx={{ mt: 20 }}>
               Oops! Something went wrong with the network! please try again
               later.
             </Typography>
@@ -31,7 +31,7 @@ const ErrorComponent = () => {
           </section>
         )}
       </section>
-      <Typography>
+      <Typography variant="body1" sx={{ mt : 10 }}>
         <Link to={"/"} className="topic-list">
           Back to Home page
         </Link>
