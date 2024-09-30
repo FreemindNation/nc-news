@@ -178,7 +178,7 @@ const FullArticle = () => {
             contentDescriptor={"comments"}
             commentCount={article.comment_count}
           >
-            <CommentsList article={article} setArticle={setArticle} />
+            <CommentsList article={article} setArticle={setArticle} increment={increment} setIncrement={setIncrement} voteError={voteError} setVoteError={setVoteError} hasVotedUp={hasVotedUp} setHasVotedUp={setHasVotedUp} hasVotedDown={hasVotedDown} setHasVotedDown={setHasVotedDown} />
           </Collapsible>
         </Box>
       </Container>

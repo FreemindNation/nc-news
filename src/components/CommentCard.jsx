@@ -13,6 +13,14 @@ const CommentCard = ({
   article,
   setArticle,
   index,
+  increment,
+  setIncrement,
+  voteError,
+  setVoteError,
+  hasVotedUp,
+  setHasVotedUp,
+  hasVotedDown,
+  setHasVotedDown
 }) => {
   const { user, setUser } = useContext(UserContext);
   const [isDeletingComment, setIsDeletingComment] = useState(false);
