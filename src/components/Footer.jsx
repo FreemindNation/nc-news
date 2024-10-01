@@ -10,7 +10,7 @@ const Footer = () => {
         bgcolor: (theme) =>
           theme.palette.mode === "light" ? "#0A1F44" : "#091B36",
         mt: "auto",
-        py: 2,
+        py: 8,
         px: 2,
       }}
     >

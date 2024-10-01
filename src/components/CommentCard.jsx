@@ -24,6 +24,7 @@ const CommentCard = ({
 }) => {
   const { user, setUser } = useContext(UserContext);
   const [isDeletingComment, setIsDeletingComment] = useState(false);
+  const [updatedComment, setUpdatedComment] = useState({});
 
   const handleDelete = () => {
     setIsDeletingComment(true);
