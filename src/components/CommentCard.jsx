@@ -3,8 +3,11 @@ import { timeConverter } from "../utils/time-converter";
 import { UserContext } from "../contexts/UserContext";
 import { useContext, useState } from "react";
 import { deleteComment } from "../utils/api-calls";
-import { Paper, Button, Typography, Avatar, Stack } from "@mui/material";
+import { Paper, Button, Typography, Avatar, Stack, Tooltip } from "@mui/material";
 import Grid2 from "@mui/material/Unstable_Grid2/Grid2";
+import ThumbUpIcon from "@mui/icons-material/ThumbUp";
+import ThumbDownIcon from "@mui/icons-material/ThumbDown";
+
 
 const CommentCard = ({
   comment,
@@ -49,11 +52,11 @@ const CommentCard = ({
       });
   };
   return (
-    <Paper variant="outlined" style={{ padding: "40px 20px" }}>
+    <Paper variant="outlined" style={{ padding: "40px 20px"}}>
       <Stack direction="row" spacing={2}>
         <Avatar />
         <Stack>
-          <Grid2 container wrap="wrap" spacing={2}>
+          <Stack container wrap="wrap" spacing={2}  flex="1">
             <Grid2 justifyContent={"left"} item xs zeroMinWidth>
               <Typography variant="h6" sx={{ textAlign: "left" }}>
                 {comment.author}
@@ -68,14 +71,49 @@ const CommentCard = ({
                 {comment.body}
               </Typography>
 
-              <Typography
-                variant="body1"
-                style={{ textAlign: "left", color: "gray" }}
+              <Stack direction="row" justifyContent="space-between" component="div" spacing={5} useFlexGap>
+                <Typography
+                  variant="body1"
+                  style={{ textAlign: "left", color: "gray" }}
+                >
+                  Votes: {comment.votes}
+                </Typography>
+                <Stack
+                direction="row"
+                justifyContent="space-around"
+                spacing={2}
+                component="div"
+                className="thumbs"
               >
-                Votes: {comment.votes}
-              </Typography>
+                {/* {voteError ? <p>{voteError}</p> : null} */}
+                <Tooltip title="Like">
+                  <Button
+                    variant="contained"
+                    id="thumb-up"
+                    sx={{ textTransform: "none" }}
+                    // onClick={() => handleIcrements(1)}
+                    // disabled={hasVotedUp}
+                    endIcon={<ThumbUpIcon />}
+                  >
+                    Like
+                  </Button>
+                </Tooltip>
+                <Tooltip title="Dislike">
+                  <Button
+                    variant="contained"
+                    id="thumb-down"
+                    sx={{ textTransform: "none" }}
+                    // onClick={() => handleIcrements(-1)}
+                    // disabled={hasVotedDown}
+                    endIcon={<ThumbDownIcon />}
+                  >
+                    Dislike
+                  </Button>
+                </Tooltip>
+              </Stack>
+              </Stack>
             </Grid2>
-          </Grid2>
+          </Stack>
           <Grid2>
             {user === comment.author ? (
               <Button
