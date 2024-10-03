@@ -55,8 +55,8 @@ const CommentCard = ({
     <Paper variant="outlined" style={{ padding: "40px 20px"}}>
       <Stack direction="row" spacing={2}>
         <Avatar />
-        <Stack>
-          <Stack container wrap="wrap" spacing={2}  flex="1">
+        <Stack sx={{ width: "100%" }}>
+          <Grid2 container wrap="wrap" spacing={2}>
             <Grid2 justifyContent={"left"} item xs zeroMinWidth>
               <Typography variant="h6" sx={{ textAlign: "left" }}>
                 {comment.author}
@@ -70,8 +70,9 @@ const CommentCard = ({
               <Typography variant="body1" sx={{ textAlign: "left", mb: 3 }}>
                 {comment.body}
               </Typography>
-
-              <Stack direction="row" justifyContent="space-between" component="div" spacing={5} useFlexGap>
+            </Grid2>
+            <Grid2 item xs={12}>
+              <Stack direction="row" justifyContent="flex-end" gap={5} alignItems="center">
                 <Typography
                   variant="body1"
                   style={{ textAlign: "left", color: "gray" }}
@@ -80,40 +81,37 @@ const CommentCard = ({
                 </Typography>
                 <Stack
                 direction="row"
-                justifyContent="space-around"
                 spacing={2}
-                component="div"
-                className="thumbs"
-              >
+                >
                 {/* {voteError ? <p>{voteError}</p> : null} */}
                 <Tooltip title="Like">
                   <Button
-                    variant="contained"
+                    variant="outlined"
                     id="thumb-up"
                     sx={{ textTransform: "none" }}
                     // onClick={() => handleIcrements(1)}
                     // disabled={hasVotedUp}
                     endIcon={<ThumbUpIcon />}
-                  >
-                    Like
-                  </Button>
+                  />
+                    {/* Like
+                  </Button> */}
                 </Tooltip>
                 <Tooltip title="Dislike">
                   <Button
-                    variant="contained"
+                    variant="outlined"
                     id="thumb-down"
                     sx={{ textTransform: "none" }}
                     // onClick={() => handleIcrements(-1)}
                     // disabled={hasVotedDown}
                     endIcon={<ThumbDownIcon />}
-                  >
-                    Dislike
-                  </Button>
+                  />
+                    {/* Dislike
+                  </Button> */}
                 </Tooltip>
               </Stack>
               </Stack>
             </Grid2>
-          </Stack>
+          </Grid2>
           <Grid2>
             {user === comment.author ? (
               <Button
