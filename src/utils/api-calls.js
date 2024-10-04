@@ -66,8 +66,8 @@ export const getTopics = () => {
 };
 
 export const patchComment = (comment_id, inc)=> {
-  const patchBody = { inc_vote: inc }
-
+  const patchBody = { inc_votes: inc }
+  console.log(comment_id, inc);
   return ncNews.patch(`/comments/${comment_id}`, patchBody)
   .then((res)=> {
     return res.data.updatedComment.votes;

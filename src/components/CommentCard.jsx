@@ -1,8 +1,7 @@
-import { Card } from "react-bootstrap";
 import { timeConverter } from "../utils/time-converter";
 import { UserContext } from "../contexts/UserContext";
 import { useContext, useState } from "react";
-import { deleteComment } from "../utils/api-calls";
+import { deleteComment, patchComment } from "../utils/api-calls";
 import { Paper, Button, Typography, Avatar, Stack, Tooltip } from "@mui/material";
 import Grid2 from "@mui/material/Unstable_Grid2/Grid2";
 import ThumbUpIcon from "@mui/icons-material/ThumbUp";
@@ -16,8 +15,6 @@ const CommentCard = ({
   article,
   setArticle,
   index,
-  increment,
-  setIncrement,
   voteError,
   setVoteError,
   hasVotedUp,
@@ -28,6 +25,34 @@ const CommentCard = ({
   const { user, setUser } = useContext(UserContext);
   const [isDeletingComment, setIsDeletingComment] = useState(false);
   const [updatedComment, setUpdatedComment] = useState({});
+  const [increment, setIncrement] = useState(0);
+
+  const handleIcrements = (increment) => {
+    setIncrement((currentVotesCount) => {
+      console.log(increment);
+      return currentVotesCount + increment;
+    });
+    if (increment === 1) {
+      setHasVotedUp(true);
+      setHasVotedDown(false);
+    } else {
+      setHasVotedDown(true);
+      setHasVotedUp(false);
+    }
+    patchComment(comment.comment_id, increment).catch((err) => {
+      setUpdatedComment((currentComment) => {
+        return { ...currentComment, votes: comment.Votes - increment };
+      });
+      setVoteError(
+        "Oops! Something went wrong, please refresh the page and try again"
+      );
+    });
+
+    setUpdatedComment((currentComment) => {
+      return { ...currentComment, votes: comment.votes + increment };
+    });
+  };
+
 
   const handleDelete = () => {
     setIsDeletingComment(true);
@@ -57,7 +82,7 @@ const CommentCard = ({
         <Avatar />
         <Stack sx={{ width: "100%" }}>
           <Grid2 container wrap="wrap" spacing={2}>
-            <Grid2 justifyContent={"left"} item xs zeroMinWidth>
+            <Grid2 justifyContent={"left"} >
               <Typography variant="h6" sx={{ textAlign: "left" }}>
                 {comment.author}
               </Typography>
@@ -71,7 +96,7 @@ const CommentCard = ({
                 {comment.body}
               </Typography>
             </Grid2>
-            <Grid2 item xs={12}>
+            <Grid2 item="true" xs={12}>
               <Stack direction="row" justifyContent="flex-end" gap={5} alignItems="center">
                 <Typography
                   variant="body1"
@@ -83,30 +108,26 @@ const CommentCard = ({
                 direction="row"
                 spacing={2}
                 >
-                {/* {voteError ? <p>{voteError}</p> : null} */}
+                {voteError ? <p>{voteError}</p> : null}
                 <Tooltip title="Like">
                   <Button
                     variant="outlined"
                     id="thumb-up"
                     sx={{ textTransform: "none" }}
-                    // onClick={() => handleIcrements(1)}
-                    // disabled={hasVotedUp}
+                    onClick={() => handleIcrements(1)}
+                    disabled={hasVotedUp}
                     endIcon={<ThumbUpIcon />}
                   />
-                    {/* Like
-                  </Button> */}
                 </Tooltip>
                 <Tooltip title="Dislike">
                   <Button
                     variant="outlined"
                     id="thumb-down"
                     sx={{ textTransform: "none" }}
-                    // onClick={() => handleIcrements(-1)}
-                    // disabled={hasVotedDown}
+                    onClick={() => handleIcrements(-1)}
+                    disabled={hasVotedDown}
                     endIcon={<ThumbDownIcon />}
                   />
-                    {/* Dislike
-                  </Button> */}
                 </Tooltip>
               </Stack>
               </Stack>
