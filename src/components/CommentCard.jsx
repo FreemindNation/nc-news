@@ -14,6 +14,8 @@ const CommentCard = ({
   setComments,
   article,
   setArticle,
+  increment,
+  setIncrement,
   index,
   voteError,
   setVoteError,
@@ -24,15 +26,15 @@ const CommentCard = ({
 }) => {
   const { user, setUser } = useContext(UserContext);
   const [isDeletingComment, setIsDeletingComment] = useState(false);
-  const [updatedComment, setUpdatedComment] = useState({});
-  const [increment, setIncrement] = useState(0);
-
+  // const [updatedComment, setUpdatedComment] = useState({});
+ 
+  console.log( typeof increment, typeof setIncrement);
   const handleIcrements = (increment) => {
     setIncrement((currentVotesCount) => {
-      console.log(increment);
       return currentVotesCount + increment;
     });
     if (increment === 1) {
+      console.log(increment === 1);
       setHasVotedUp(true);
       setHasVotedDown(false);
     } else {
@@ -40,7 +42,7 @@ const CommentCard = ({
       setHasVotedUp(false);
     }
     patchComment(comment.comment_id, increment).catch((err) => {
-      setUpdatedComment((currentComment) => {
+      setComments((currentComments) => {
         return { ...currentComment, votes: comment.Votes - increment };
       });
       setVoteError(
@@ -48,11 +50,15 @@ const CommentCard = ({
       );
     });
 
-    setUpdatedComment((currentComment) => {
-      return { ...currentComment, votes: comment.votes + increment };
-    });
-  };
+    setComments((currentComments) => {
 
+      return currentComments.map((comment)=>{
+        if(comment.comment_id) {
+          return { ...currentComments, votes: comment.votes + increment };
+        }
+      })
+    })
+  };
 
   const handleDelete = () => {
     setIsDeletingComment(true);

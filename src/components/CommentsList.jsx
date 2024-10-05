@@ -9,6 +9,7 @@ const CommentsList = ({ article, setArticle, increment, setIcrement, voteError, 
   const [isLoading, setIsLoading] = useState(true);
   const [commentsError, setCommentsError] = useState(null);
 
+  
   useEffect(() => {
     setIsLoading(true);
     getCommentsByArticleId(article.article_id)
