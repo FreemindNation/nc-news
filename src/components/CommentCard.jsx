@@ -87,11 +87,11 @@ const CommentCard = ({
   };
   return (
     <Paper variant="outlined" style={{ padding: "40px 20px"}}>
-      <Stack direction="row" spacing={2}>
+      <Stack direction={{xs: "column", sm: "row"}} spacing={2}>
         <Avatar />
         <Stack sx={{ width: "100%" }}>
-          <Grid2 container wrap="wrap" spacing={2}>
-            <Grid2 justifyContent={"left"} >
+          <Grid2 container spacing={2}>
+            <Grid2 item xs={12} md={8} >
               <Typography variant="h6" sx={{ textAlign: "left" }}>
                 {comment.author}
               </Typography>
@@ -105,8 +105,8 @@ const CommentCard = ({
                 {comment.body}
               </Typography>
             </Grid2>
-            <Grid2 item="true" xs={12}>
-              <Stack direction="row" justifyContent="flex-end" gap={5} alignItems="center">
+            <Grid2 item xs={12} md={4}>
+              <Stack direction={{xs: "column-reverse", sm:"row"}} justifyContent="flex-end" gap={3} alignItems="center">
                 <Typography
                   variant="body1"
                   style={{ textAlign: "left", color: "gray" }}
@@ -122,7 +122,7 @@ const CommentCard = ({
                   <Button
                     variant="outlined"
                     id="thumb-up"
-                    sx={{ textTransform: "none" }}
+                    sx={{ textTransform: "none", width: { xs: "100%", sm: "auto"} }}
                     onClick={() => handleIcrements(1)}
                     disabled={hasVotedUp}
                     endIcon={<ThumbUpIcon />}
@@ -132,7 +132,7 @@ const CommentCard = ({
                   <Button
                     variant="outlined"
                     id="thumb-down"
-                    sx={{ textTransform: "none" }}
+                    sx={{ textTransform: "none", width: { xs: "100%", sm: "auto"} }}
                     onClick={() => handleIcrements(-1)}
                     disabled={hasVotedDown}
                     endIcon={<ThumbDownIcon />}
