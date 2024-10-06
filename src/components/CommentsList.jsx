@@ -58,14 +58,6 @@ const CommentsList = ({ article, setArticle, increment, setIcrement, voteError, 
                 comments={comments}
                 setComments={setComments}
                 index={index}
-                increment={increment}
-                setIcrement={setIcrement}
-                voteError={voteError}
-                setVoteError={setVoteError}
-                hasVotedUp={hasVotedUp}
-                setHasVotedUp={setHasVotedUp}
-                hasVotedDown={hasVotedDown}
-                setHasVotedDown={setHasVotedUp}
               />
             );
           })}

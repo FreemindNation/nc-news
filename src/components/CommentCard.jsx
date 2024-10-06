@@ -14,50 +14,53 @@ const CommentCard = ({
   setComments,
   article,
   setArticle,
-  increment,
-  setIncrement,
   index,
-  voteError,
-  setVoteError,
-  hasVotedUp,
-  setHasVotedUp,
-  hasVotedDown,
-  setHasVotedDown
 }) => {
   const { user, setUser } = useContext(UserContext);
   const [isDeletingComment, setIsDeletingComment] = useState(false);
-  // const [updatedComment, setUpdatedComment] = useState({});
- 
-  console.log( typeof increment, typeof setIncrement);
+  const [increment, setIncrement] = useState(0);
+  const [hasVotedUp, setHasVotedUp] = useState(false);
+  const [hasVotedDown, setHasVotedDown] = useState(false);
+  const [voteError, setVoteError] = useState(null);
+  
+  const commentId = comment.comment_id;
+
   const handleIcrements = (increment) => {
     setIncrement((currentVotesCount) => {
       return currentVotesCount + increment;
     });
+
     if (increment === 1) {
-      console.log(increment === 1);
       setHasVotedUp(true);
       setHasVotedDown(false);
     } else {
       setHasVotedDown(true);
       setHasVotedUp(false);
     }
-    patchComment(comment.comment_id, increment).catch((err) => {
+
+    setComments((currentComments) => {
+        return currentComments.map((comment)=> {
+          if(comment.comment_id === commentId) {
+            return {...comment, votes: comment.votes + increment };
+          }
+          return comment;
+        });
+    });
+    
+    patchComment(commentId, increment).catch((err) => {
       setComments((currentComments) => {
-        return { ...currentComment, votes: comment.Votes - increment };
-      });
+        return currentComments.map((comment)=> {
+          if(comment.comment_id === commentId) {
+            return {...comment, votes: comment.votes - increment };
+          }
+          return comment;
+        });
+    });
       setVoteError(
         "Oops! Something went wrong, please refresh the page and try again"
       );
     });
 
-    setComments((currentComments) => {
-
-      return currentComments.map((comment)=>{
-        if(comment.comment_id) {
-          return { ...currentComments, votes: comment.votes + increment };
-        }
-      })
-    })
   };
 
   const handleDelete = () => {
