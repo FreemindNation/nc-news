@@ -4,11 +4,12 @@ import CommentCard from "./CommentCard";
 import CommentAdder from "./CommentAdder";
 import { Box, Typography } from "@mui/material";
 
-const CommentsList = ({ article, setArticle }) => {
+const CommentsList = ({ article, setArticle, increment, setIcrement, voteError, setVoteError, hasVotedUp, setHasVotedUp, hasVotedDown, setHasVotedDown  }) => {
   const [comments, setComments] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [commentsError, setCommentsError] = useState(null);
 
+  
   useEffect(() => {
     setIsLoading(true);
     getCommentsByArticleId(article.article_id)

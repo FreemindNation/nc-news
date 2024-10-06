@@ -64,3 +64,11 @@ export const getTopics = () => {
     return res.data;
   });
 };
+
+export const patchComment = (comment_id, inc)=> {
+  const patchBody = { inc_votes: inc }
+  return ncNews.patch(`/comments/${comment_id}`, patchBody)
+  .then((res)=> {
+    return res.data.updatedComment.votes;
+  })
+}
