@@ -146,28 +146,28 @@ const FullArticle = () => {
                 className="thumbs"
               >
                 {voteError ? <p>{voteError}</p> : null}
-                <Tooltip title="Like">
+                <Tooltip title="Vote up">
                   <Button
-                    variant="contained"
+                    variant="outlined"
                     id="thumb-up"
                     sx={{ textTransform: "none", width: { xs: "100%", sm: "auto"} }}
                     onClick={() => handleIcrements(1)}
                     disabled={hasVotedUp}
                     endIcon={<ThumbUpIcon />}
                   >
-                    Like
+                    Vote
                   </Button>
                 </Tooltip>
-                <Tooltip title="Dislike">
+                <Tooltip title="Vote down">
                   <Button
-                    variant="contained"
+                    variant="outlined"
                     id="thumb-down"
                     sx={{ textTransform: "none", width: { xs: "100%", sm: "auto"} }}
                     onClick={() => handleIcrements(-1)}
                     disabled={hasVotedDown}
                     endIcon={<ThumbDownIcon />}
                   >
-                    Dislike
+                    Vote
                   </Button>
                 </Tooltip>
               </Stack>

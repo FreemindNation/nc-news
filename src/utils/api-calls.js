@@ -70,5 +70,12 @@ export const patchComment = (comment_id, inc)=> {
   return ncNews.patch(`/comments/${comment_id}`, patchBody)
   .then((res)=> {
     return res.data.updatedComment.votes;
-  })
-}
+  });
+};
+
+export const getUser = (username)=> {
+  return ncNews.get(`/users/${username}`)
+  .then((res)=> {
+    return res.data;
+  });
+};
