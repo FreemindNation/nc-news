@@ -1,7 +1,7 @@
 import { timeConverter } from "../utils/time-converter";
 import { UserContext } from "../contexts/UserContext";
-import { useContext, useState } from "react";
-import { deleteComment, patchComment } from "../utils/api-calls";
+import { useContext, useEffect, useState } from "react";
+import { deleteComment, getUser, patchComment } from "../utils/api-calls";
 import { Paper, Button, Typography, Avatar, Stack, Tooltip } from "@mui/material";
 import Grid2 from "@mui/material/Unstable_Grid2/Grid2";
 import ThumbUpIcon from "@mui/icons-material/ThumbUp";
@@ -22,8 +22,18 @@ const CommentCard = ({
   const [hasVotedUp, setHasVotedUp] = useState(false);
   const [hasVotedDown, setHasVotedDown] = useState(false);
   const [voteError, setVoteError] = useState(null);
+  const [avatar, setAvatar] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
   
   const commentId = comment.comment_id;
+
+  useEffect(()=> {
+    getUser(comment.author)
+    .then((res)=> {
+      setAvatar(res.user.avatar_url);
+    })
+  }, [comment.author]);
+
 
   const handleIcrements = (increment) => {
     setIncrement((currentVotesCount) => {
@@ -85,10 +95,19 @@ const CommentCard = ({
         setIsDeletingComment(false);
       });
   };
+
+  if (isLoading) {
+    return (
+      <Typography variant="body1" color="primary">
+        Loading image...
+      </Typography>
+    );
+  }
+
   return (
     <Paper variant="outlined" style={{ padding: "40px 20px"}}>
       <Stack direction={{xs: "column", sm: "row"}} spacing={2}>
-        <Avatar />
+        <Avatar src={avatar} alt="avatar image of the comment's author" />
         <Stack sx={{ width: "100%" }}>
           <Grid2 container spacing={2}>
             <Grid2 item xs={12} md={8} >
@@ -118,7 +137,7 @@ const CommentCard = ({
                 spacing={2}
                 >
                 {voteError ? <p>{voteError}</p> : null}
-                <Tooltip title="Like">
+                <Tooltip title="Vote up">
                   <Button
                     variant="outlined"
                     id="thumb-up"
@@ -128,7 +147,7 @@ const CommentCard = ({
                     endIcon={<ThumbUpIcon />}
                   />
                 </Tooltip>
-                <Tooltip title="Dislike">
+                <Tooltip title="Vote down">
                   <Button
                     variant="outlined"
                     id="thumb-down"
@@ -145,7 +164,7 @@ const CommentCard = ({
           <Grid2>
             {user === comment.author ? (
               <Button
-                variant="outlined"
+                variant="contained"
                 sx={{ textTransform: "none", mt: 2 }}
                 onClick={handleDelete}
                 disabled={isDeletingComment}

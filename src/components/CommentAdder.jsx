@@ -67,7 +67,7 @@ const CommentAdder = ({ article, setArticle, setComments, commentsError }) => {
               required
             />
             <Button
-              variant="outlined"
+              variant="contained"
               size="small"
               type="submit"
               sx={{ mb: 3, textTransform: "none" }}
