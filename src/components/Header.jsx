@@ -5,6 +5,7 @@ import { Stack, AppBar, Tooltip, Toolbar, Box } from "@mui/material";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import Grid2 from "@mui/material/Unstable_Grid2/Grid2";
 import PublicIcon from "@mui/icons-material/Public";
+import { Link } from "react-router-dom";
 
 const Header = () => {
   const { user, setUser } = useContext(UserContext);
@@ -34,7 +35,9 @@ const Header = () => {
             >
               NC
             </Typography>
-            <PublicIcon fontSize="large" />
+            <Link to="/" style={{ color: "white" }}>
+              <PublicIcon fontSize="large" />
+            </Link>
             <Typography
               variant="h5"
               sx={{
