@@ -21,19 +21,24 @@ const ArticlesList = () => {
   const { error, setError } = useContext(ErrorContext);
   const sortBy = searchParams.get("sort_by") || "created_at";
   const order = searchParams.get("order") || "desc";
+  const [page, setPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(1);
 
   useEffect(() => {
     setIsLoading(true);
-    getArticles(slug, sortBy, order)
+    getArticles(slug, sortBy, order, page)
       .then((res) => {
+        
         setArticles(res.articles);
+        console.log(res);
+        // setTotalPages()
         setIsLoading(false);
       })
       .catch((err) => {
         setIsLoading(false);
         setError({ err });
       });
-  }, [slug, sortBy, order]);
+  }, [slug, sortBy, order, page]);
 
   const handleSortChange = (newSortBy) => {
     setSearchParams({ sort_by: newSortBy, order });
