@@ -4,7 +4,7 @@ import CommentCard from "./CommentCard";
 import CommentAdder from "./CommentAdder";
 import { Box, Typography, Stack, Pagination } from "@mui/material";
 
-const CommentsList = ({ article, setArticle  }) => {
+const CommentsList = ({ article, setArticle }) => {
   const [comments, setComments] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [commentsError, setCommentsError] = useState(null);
@@ -12,7 +12,6 @@ const CommentsList = ({ article, setArticle  }) => {
   const [totalPages, setTotalPages] = useState(1);
   const limit = 5;
 
-  
   useEffect(() => {
     setIsLoading(true);
     getCommentsByArticleId(article.article_id, currentPage, limit)
@@ -29,7 +28,7 @@ const CommentsList = ({ article, setArticle  }) => {
 
   const handlePageChange = (event, page) => {
     setCurrentPage(page);
-  }
+  };
 
   if (isLoading) {
     return (
@@ -71,8 +70,24 @@ const CommentsList = ({ article, setArticle  }) => {
               );
             })}
           </Box>
-          <Stack sx={{ alignItems: "center" , justifyContent: "center", mt: 3, mb: 5 }} >
-            <Pagination color="primary" page={currentPage} count={totalPages} onChange={handlePageChange}  size="large" variant="outlined" showFirstButton showLastButton />
+          <Stack
+            sx={{
+              alignItems: "center",
+              justifyContent: "center",
+              mt: 3,
+              mb: 5,
+            }}
+          >
+            <Pagination
+              color="primary"
+              page={currentPage}
+              count={totalPages}
+              onChange={handlePageChange}
+              size="large"
+              variant="outlined"
+              showFirstButton
+              showLastButton
+            />
           </Stack>
         </>
       )}

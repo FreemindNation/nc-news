@@ -16,7 +16,7 @@ export const getArticles = (topic, sort_by, order, page, limit) => {
   if (order) {
     params.order = order;
   }
-  if(limit) {
+  if (limit) {
     params.limit = limit;
     params.page = page;
   }
@@ -26,25 +26,25 @@ export const getArticles = (topic, sort_by, order, page, limit) => {
   });
 };
 
-export const getArticleById = (article_id)=> {
-    return ncNews.get(`/articles/${article_id}`)
-    .then((res)=> {
-        return res.data;
-    })
-}
+export const getArticleById = (article_id) => {
+  return ncNews.get(`/articles/${article_id}`).then((res) => {
+    return res.data;
+  });
+};
 
 export const getCommentsByArticleId = (article_id, page, limit) => {
-
   const params = {};
 
-  if(limit) {
+  if (limit) {
     params.limit = limit;
     params.page = page;
   }
 
-  return ncNews.get(`/articles/${article_id}/comments`, { params }).then((res) => {
-    return res.data;
-  });
+  return ncNews
+    .get(`/articles/${article_id}/comments`, { params })
+    .then((res) => {
+      return res.data;
+    });
 };
 
 export const patchArticle = (article_id, inc) => {
@@ -77,17 +77,15 @@ export const getTopics = () => {
   });
 };
 
-export const patchComment = (comment_id, inc)=> {
-  const patchBody = { inc_votes: inc }
-  return ncNews.patch(`/comments/${comment_id}`, patchBody)
-  .then((res)=> {
+export const patchComment = (comment_id, inc) => {
+  const patchBody = { inc_votes: inc };
+  return ncNews.patch(`/comments/${comment_id}`, patchBody).then((res) => {
     return res.data.updatedComment.votes;
   });
 };
 
-export const getUser = (username)=> {
-  return ncNews.get(`/users/${username}`)
-  .then((res)=> {
+export const getUser = (username) => {
+  return ncNews.get(`/users/${username}`).then((res) => {
     return res.data;
   });
 };

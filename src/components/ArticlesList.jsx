@@ -11,7 +11,7 @@ import {
   Container,
   Typography,
   Pagination,
-  Stack
+  Stack,
 } from "@mui/material";
 
 const ArticlesList = () => {
@@ -31,11 +31,10 @@ const ArticlesList = () => {
     setIsLoading(true);
     getArticles(slug, sortBy, order, currentPage, limit)
       .then((res) => {
-        
         setArticles(res.articles);
-        
+
         setTotalPages(res.totalPages);
-    
+
         setIsLoading(false);
       })
       .catch((err) => {
@@ -43,7 +42,6 @@ const ArticlesList = () => {
         setError({ err });
       });
   }, [slug, sortBy, order, currentPage, limit]);
-
 
   const handleSortChange = (newSortBy) => {
     setSearchParams({ sort_by: newSortBy, order });
@@ -55,7 +53,7 @@ const ArticlesList = () => {
 
   const handlePageChange = (event, page) => {
     setCurrentPage(page);
-  }
+  };
 
   if (error) {
     return <ErrorComponent message={error} />;
@@ -106,16 +104,33 @@ const ArticlesList = () => {
           <>
             <section className="article-grid">
               {articles.map((article) => {
-                return <ArticleCard key={article.article_id} article={article} />;
+                return (
+                  <ArticleCard key={article.article_id} article={article} />
+                );
               })}
             </section>
-            <Stack sx={{ alignItems: "center" , justifyContent: "center", mt: 3, mb: 5 }}>
-            <Pagination color="primary" page={currentPage} count={totalPages} onChange={handlePageChange}  size="large" variant="outlined" showFirstButton showLastButton />
+            <Stack
+              sx={{
+                alignItems: "center",
+                justifyContent: "center",
+                mt: 3,
+                mb: 5,
+              }}
+            >
+              <Pagination
+                color="primary"
+                page={currentPage}
+                count={totalPages}
+                onChange={handlePageChange}
+                size="large"
+                variant="outlined"
+                showFirstButton
+                showLastButton
+              />
             </Stack>
           </>
         )}
       </Container>
-      
     </section>
   );
 };
