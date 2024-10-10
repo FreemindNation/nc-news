@@ -33,8 +33,16 @@ export const getArticleById = (article_id)=> {
     })
 }
 
-export const getCommentsByArticleId = (article_id) => {
-  return ncNews.get(`/articles/${article_id}/comments`).then((res) => {
+export const getCommentsByArticleId = (article_id, page, limit) => {
+
+  const params = {};
+
+  if(limit) {
+    params.limit = limit;
+    params.page = page;
+  }
+
+  return ncNews.get(`/articles/${article_id}/comments`, { params }).then((res) => {
     return res.data;
   });
 };
