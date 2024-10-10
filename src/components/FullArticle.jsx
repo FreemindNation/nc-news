@@ -128,7 +128,7 @@ const FullArticle = () => {
 
             <Stack
               component="div"
-              direction={{ xs: "column-reverse", sm:"row" }}
+              direction={{ xs: "column-reverse", sm: "row" }}
               gap={3}
               justifyContent="space-around"
               sx={{ mb: 3 }}
@@ -150,7 +150,10 @@ const FullArticle = () => {
                   <Button
                     variant="outlined"
                     id="thumb-up"
-                    sx={{ textTransform: "none", width: { xs: "100%", sm: "auto"} }}
+                    sx={{
+                      textTransform: "none",
+                      width: { xs: "100%", sm: "auto" },
+                    }}
                     onClick={() => handleIcrements(1)}
                     disabled={hasVotedUp}
                     endIcon={<ThumbUpIcon />}
@@ -162,7 +165,10 @@ const FullArticle = () => {
                   <Button
                     variant="outlined"
                     id="thumb-down"
-                    sx={{ textTransform: "none", width: { xs: "100%", sm: "auto"} }}
+                    sx={{
+                      textTransform: "none",
+                      width: { xs: "100%", sm: "auto" },
+                    }}
                     onClick={() => handleIcrements(-1)}
                     disabled={hasVotedDown}
                     endIcon={<ThumbDownIcon />}
@@ -179,7 +185,18 @@ const FullArticle = () => {
             contentDescriptor={"comments"}
             commentCount={article.comment_count}
           >
-            <CommentsList article={article} setArticle={setArticle} increment={increment} setIncrement={setIncrement} voteError={voteError} setVoteError={setVoteError} hasVotedUp={hasVotedUp} setHasVotedUp={setHasVotedUp} hasVotedDown={hasVotedDown} setHasVotedDown={setHasVotedDown} />
+            <CommentsList
+              article={article}
+              setArticle={setArticle}
+              increment={increment}
+              setIncrement={setIncrement}
+              voteError={voteError}
+              setVoteError={setVoteError}
+              hasVotedUp={hasVotedUp}
+              setHasVotedUp={setHasVotedUp}
+              hasVotedDown={hasVotedDown}
+              setHasVotedDown={setHasVotedDown}
+            />
           </Collapsible>
         </Box>
       </Container>

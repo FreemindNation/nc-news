@@ -10,6 +10,8 @@ import {
   FormControl,
   Container,
   Typography,
+  Pagination,
+  Stack,
 } from "@mui/material";
 
 const ArticlesList = () => {
@@ -21,19 +23,25 @@ const ArticlesList = () => {
   const { error, setError } = useContext(ErrorContext);
   const sortBy = searchParams.get("sort_by") || "created_at";
   const order = searchParams.get("order") || "desc";
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(1);
+  const limit = 6;
 
   useEffect(() => {
     setIsLoading(true);
-    getArticles(slug, sortBy, order)
+    getArticles(slug, sortBy, order, currentPage, limit)
       .then((res) => {
         setArticles(res.articles);
+
+        setTotalPages(res.totalPages);
+
         setIsLoading(false);
       })
       .catch((err) => {
         setIsLoading(false);
         setError({ err });
       });
-  }, [slug, sortBy, order]);
+  }, [slug, sortBy, order, currentPage, limit]);
 
   const handleSortChange = (newSortBy) => {
     setSearchParams({ sort_by: newSortBy, order });
@@ -41,6 +49,10 @@ const ArticlesList = () => {
 
   const handleOrderChange = (newOrder) => {
     setSearchParams({ sort_by: sortBy, order: newOrder });
+  };
+
+  const handlePageChange = (event, page) => {
+    setCurrentPage(page);
   };
 
   if (error) {
@@ -89,11 +101,34 @@ const ArticlesList = () => {
             Loading articles...
           </Typography>
         ) : (
-          <section className="article-grid">
-            {articles.map((article) => {
-              return <ArticleCard key={article.article_id} article={article} />;
-            })}
-          </section>
+          <>
+            <section className="article-grid">
+              {articles.map((article) => {
+                return (
+                  <ArticleCard key={article.article_id} article={article} />
+                );
+              })}
+            </section>
+            <Stack
+              sx={{
+                alignItems: "center",
+                justifyContent: "center",
+                mt: 3,
+                mb: 5,
+              }}
+            >
+              <Pagination
+                color="primary"
+                page={currentPage}
+                count={totalPages}
+                onChange={handlePageChange}
+                size="large"
+                variant="outlined"
+                showFirstButton
+                showLastButton
+              />
+            </Stack>
+          </>
         )}
       </Container>
     </section>
