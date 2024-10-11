@@ -75,7 +75,7 @@ const ArticlesList = () => {
             onChange={(event) => handleSortChange(event.target.value)}
           >
             <MenuItem value="created_at">Date</MenuItem>
-            <MenuItem value="comment_count">Comment Count</MenuItem>
+            <MenuItem value="comment_count">Comment count</MenuItem>
             <MenuItem value="votes">Votes</MenuItem>
           </TextField>
         </FormControl>
