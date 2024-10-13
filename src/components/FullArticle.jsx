@@ -11,20 +11,27 @@ import {
   Box,
   Typography,
   Button,
+  IconButton,
   Tooltip,
   Stack,
 } from "@mui/material";
-import ThumbUpIcon from "@mui/icons-material/ThumbUp";
-import ThumbDownIcon from "@mui/icons-material/ThumbDown";
+import ThumbUpAltOutlinedIcon from '@mui/icons-material/ThumbUpAltOutlined';
+import ThumbDownOutlinedIcon from '@mui/icons-material/ThumbDownOutlined';
+import ThumbUpIcon from '@mui/icons-material/ThumbUp';
+import ThumbDownIcon from '@mui/icons-material/ThumbDown';
+
 
 const FullArticle = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [article, setArticle] = useState({});
-  const [increment, setIncrement] = useState(0);
   const { error, setError } = useContext(ErrorContext);
+  // const [increment, setIncrement] = useState(0);
   const [voteError, setVoteError] = useState(null);
-  const [hasVotedUp, setHasVotedUp] = useState(false);
-  const [hasVotedDown, setHasVotedDown] = useState(false);
+  // const [hasVotedUp, setHasVotedUp] = useState(false);
+  // const [hasVotedDown, setHasVotedDown] = useState(false);
+  // const [hasReversedUpVote, setHasReversedUpVote] = useState(false);
+  // const [hasReversedDownVote, setHasReversedDownVote] =useState(false);
+  const [vote, setVote] = useState(0);
 
   const { article_id } = useParams();
 
@@ -41,29 +48,61 @@ const FullArticle = () => {
   }, [article_id]);
 
   const handleIcrements = (increment) => {
-    setIncrement((currentVotesCount) => {
-      return currentVotesCount + increment;
-    });
-    if (increment === 1) {
-      setHasVotedUp(true);
-      setHasVotedDown(false);
-    } else {
-      setHasVotedDown(true);
-      setHasVotedUp(false);
+    let newVote = vote + increment;
+
+    if(newVote === 2 || newVote === -2 || newVote === 0) {
+      newVote = 0;
     }
-    patchArticle(article.article_id, increment).catch((err) => {
-      setArticle((currentArticle) => {
-        return { ...currentArticle, votes: article.Votes - increment };
-      });
+
+    setVote(newVote);
+
+    setArticle((currentArticle) => ({...currentArticle, votes: currentArticle.votes + (newVote - vote)}));
+
+    patchArticle(article.article_id, newVote - vote)
+    .catch((err) => {
+      setVote(vote);
+      setArticle((currentArticle) => ({...currentArticle, votes: currentArticle.votes - (newVote - vote)}));
       setVoteError(
         "Oops! Something went wrong, please refresh the page and try again"
       );
-    });
+    })
+    // setIncrement((currentVotesCount) => {
+    //   return currentVotesCount + increment;
+    // });
+    // if (increment === 1) {
+    //   setHasVotedUp(true);
+    
+    // }
+
+    // if(increment === -1){
+    //   setHasVotedDown(true);
+    // }
+    
+    // if(increment === -1 && hasVotedUp) {
+    //   setHasReversedUpVote(true);
+    //   setHasVotedUp(false);
+    //   setHasVotedDown(false);
+    // }
+
+    // if(increment === 1 && hasVotedDown) {
+    //   setHasReversedDownVote(true)
+    //   setHasVotedDown(false);
+    //   setHasVotedUp(false);
+
+    // }
 
     setArticle((currentArticle) => {
       return { ...currentArticle, votes: article.votes + increment };
+      });
+    };
+    
+    patchArticle(article.article_id, n).catch((err) => {
+      setArticle((currentArticle) => {
+        return { ...currentArticle, votes: article.Votes - increment };
+      });
+      
     });
-  };
+
 
   if (error) {
     return <ErrorComponent message={error} />;
@@ -146,36 +185,53 @@ const FullArticle = () => {
                 className="thumbs"
               >
                 {voteError ? <p>{voteError}</p> : null}
-                <Tooltip title="Vote up">
-                  <Button
+                {hasVotedUp ? <IconButton 
+                    variant="contained"
+                    size="large"
+                    color="success"
+                    sx={{
+                      textTransform: "none",
+                      width: { xs: "100%", sm: "auto" },
+                    }}
+                    onClick={() => handleIcrements(-1)} ><ThumbUpIcon fontSize="inherit"/></IconButton> : <Tooltip title="Vote up">
+                  <IconButton
                     variant="outlined"
                     id="thumb-up"
+                    size="large"
+                    color="primary"
                     sx={{
                       textTransform: "none",
                       width: { xs: "100%", sm: "auto" },
                     }}
                     onClick={() => handleIcrements(1)}
-                    disabled={hasVotedUp}
-                    endIcon={<ThumbUpIcon />}
                   >
-                    Vote
-                  </Button>
-                </Tooltip>
-                <Tooltip title="Vote down">
-                  <Button
+                    <ThumbUpAltOutlinedIcon  fontSize="inherit"/>
+                  </IconButton>
+                </Tooltip>}
+                {hasVotedDown ? <IconButton 
+                    
+                    size="large"
+                    color="error"
+                    sx={{
+                      textTransform: "none",
+                      width: { xs: "100%", sm: "auto" },
+                    }}
+                    onClick={() => handleIcrements(1)} ><ThumbDownIcon fontSize="inherit"/></IconButton> : <Tooltip title="Vote down">
+                  <IconButton
                     variant="outlined"
                     id="thumb-down"
+                    size="large"
+                    color="primary"
                     sx={{
                       textTransform: "none",
                       width: { xs: "100%", sm: "auto" },
                     }}
                     onClick={() => handleIcrements(-1)}
-                    disabled={hasVotedDown}
-                    endIcon={<ThumbDownIcon />}
+                    
                   >
-                    Vote
-                  </Button>
-                </Tooltip>
+                    <ThumbDownOutlinedIcon fontSize="inherit" />
+                  </IconButton>
+                </Tooltip>}
               </Stack>
             </Stack>
           </Box>
