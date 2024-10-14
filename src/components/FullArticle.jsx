@@ -25,12 +25,7 @@ const FullArticle = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [article, setArticle] = useState({});
   const { error, setError } = useContext(ErrorContext);
-  // const [increment, setIncrement] = useState(0);
   const [voteError, setVoteError] = useState(null);
-  // const [hasVotedUp, setHasVotedUp] = useState(false);
-  // const [hasVotedDown, setHasVotedDown] = useState(false);
-  // const [hasReversedUpVote, setHasReversedUpVote] = useState(false);
-  // const [hasReversedDownVote, setHasReversedDownVote] =useState(false);
   const [vote, setVote] = useState(0);
 
   const { article_id } = useParams();
@@ -48,60 +43,29 @@ const FullArticle = () => {
   }, [article_id]);
 
   const handleIcrements = (increment) => {
-    let newVote = vote + increment;
+    let newVote;
 
-    if(newVote === 2 || newVote === -2 || newVote === 0) {
+    if(vote === increment) {
       newVote = 0;
+    } else {
+      newVote = increment;
     }
+
+    const voteDifference = newVote - vote;
 
     setVote(newVote);
 
-    setArticle((currentArticle) => ({...currentArticle, votes: currentArticle.votes + (newVote - vote)}));
+    setArticle((currentArticle) => ({...currentArticle, votes: currentArticle.votes + voteDifference}));
 
-    patchArticle(article.article_id, newVote - vote)
+    patchArticle(article.article_id, voteDifference)
     .catch((err) => {
       setVote(vote);
-      setArticle((currentArticle) => ({...currentArticle, votes: currentArticle.votes - (newVote - vote)}));
+      setArticle((currentArticle) => ({...currentArticle, votes: currentArticle.votes - voteDifference}));
       setVoteError(
         "Oops! Something went wrong, please refresh the page and try again"
       );
     })
-    // setIncrement((currentVotesCount) => {
-    //   return currentVotesCount + increment;
-    // });
-    // if (increment === 1) {
-    //   setHasVotedUp(true);
-    
-    // }
-
-    // if(increment === -1){
-    //   setHasVotedDown(true);
-    // }
-    
-    // if(increment === -1 && hasVotedUp) {
-    //   setHasReversedUpVote(true);
-    //   setHasVotedUp(false);
-    //   setHasVotedDown(false);
-    // }
-
-    // if(increment === 1 && hasVotedDown) {
-    //   setHasReversedDownVote(true)
-    //   setHasVotedDown(false);
-    //   setHasVotedUp(false);
-
-    // }
-
-    setArticle((currentArticle) => {
-      return { ...currentArticle, votes: article.votes + increment };
-      });
-    };
-    
-    patchArticle(article.article_id, n).catch((err) => {
-      setArticle((currentArticle) => {
-        return { ...currentArticle, votes: article.Votes - increment };
-      });
-      
-    });
+  };
 
 
   if (error) {
@@ -185,43 +149,27 @@ const FullArticle = () => {
                 className="thumbs"
               >
                 {voteError ? <p>{voteError}</p> : null}
-                {hasVotedUp ? <IconButton 
-                    variant="contained"
-                    size="large"
-                    color="success"
-                    sx={{
-                      textTransform: "none",
-                      width: { xs: "100%", sm: "auto" },
-                    }}
-                    onClick={() => handleIcrements(-1)} ><ThumbUpIcon fontSize="inherit"/></IconButton> : <Tooltip title="Vote up">
-                  <IconButton
+                <Tooltip title="Vote up">
+                  <Button
                     variant="outlined"
                     id="thumb-up"
                     size="large"
-                    color="primary"
+                    color={vote === 1 ? "success" : "primary"}
                     sx={{
                       textTransform: "none",
                       width: { xs: "100%", sm: "auto" },
                     }}
                     onClick={() => handleIcrements(1)}
                   >
-                    <ThumbUpAltOutlinedIcon  fontSize="inherit"/>
-                  </IconButton>
-                </Tooltip>}
-                {hasVotedDown ? <IconButton 
-                    
-                    size="large"
-                    color="error"
-                    sx={{
-                      textTransform: "none",
-                      width: { xs: "100%", sm: "auto" },
-                    }}
-                    onClick={() => handleIcrements(1)} ><ThumbDownIcon fontSize="inherit"/></IconButton> : <Tooltip title="Vote down">
-                  <IconButton
+                    { vote === 1 ? <ThumbUpIcon/> : <ThumbUpAltOutlinedIcon/>}
+                  </Button>
+                </Tooltip>
+                <Tooltip title="Vote down">
+                  <Button
                     variant="outlined"
                     id="thumb-down"
                     size="large"
-                    color="primary"
+                    color={vote === -1 ? "error" : "primary"}
                     sx={{
                       textTransform: "none",
                       width: { xs: "100%", sm: "auto" },
@@ -229,9 +177,9 @@ const FullArticle = () => {
                     onClick={() => handleIcrements(-1)}
                     
                   >
-                    <ThumbDownOutlinedIcon fontSize="inherit" />
-                  </IconButton>
-                </Tooltip>}
+                    {vote === -1 ? <ThumbDownIcon /> : <ThumbDownOutlinedIcon />}
+                  </Button>
+                </Tooltip>
               </Stack>
             </Stack>
           </Box>
@@ -244,14 +192,14 @@ const FullArticle = () => {
             <CommentsList
               article={article}
               setArticle={setArticle}
-              increment={increment}
-              setIncrement={setIncrement}
+              // increment={increment}
+              // setIncrement={setIncrement}
               voteError={voteError}
               setVoteError={setVoteError}
-              hasVotedUp={hasVotedUp}
-              setHasVotedUp={setHasVotedUp}
-              hasVotedDown={hasVotedDown}
-              setHasVotedDown={setHasVotedDown}
+              // hasVotedUp={hasVotedUp}
+              // setHasVotedUp={setHasVotedUp}
+              // hasVotedDown={hasVotedDown}
+              // setHasVotedDown={setHasVotedDown}
             />
           </Collapsible>
         </Box>
