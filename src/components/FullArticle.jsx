@@ -192,14 +192,8 @@ const FullArticle = () => {
             <CommentsList
               article={article}
               setArticle={setArticle}
-              // increment={increment}
-              // setIncrement={setIncrement}
               voteError={voteError}
               setVoteError={setVoteError}
-              // hasVotedUp={hasVotedUp}
-              // setHasVotedUp={setHasVotedUp}
-              // hasVotedDown={hasVotedDown}
-              // setHasVotedDown={setHasVotedDown}
             />
           </Collapsible>
         </Box>
