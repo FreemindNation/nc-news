@@ -139,28 +139,32 @@ const CommentCard = ({
                 spacing={2}
                 >
                 {voteError ? <p>{voteError}</p> : null}
-                <Tooltip title="Vote up">
-                  <Button
-                    variant="outlined"
-                    color={ vote === 1 ? "success" : "primary"}
-                    id="thumb-up"
-                    sx={{ textTransform: "none", width: { xs: "100%", sm: "auto"} }}
-                    onClick={() => handleIcrements(1)}
-                  >
-                    {vote === 1 ? <ThumbUpIcon /> : <ThumbUpAltOutlinedIcon />}
-                  </Button>
-                </Tooltip>
-                <Tooltip title="Vote down">
-                  <Button
-                    variant="outlined"
-                    color={vote === -1 ? "error" : "primary"}
-                    id="thumb-down"
-                    sx={{ textTransform: "none", width: { xs: "100%", sm: "auto"} }}
-                    onClick={() => handleIcrements(-1)}
-                  >
-                    {vote === -1 ? <ThumbDownIcon /> : <ThumbDownOutlinedIcon />}
-                  </Button>
-                </Tooltip>
+                <motion.div whileTap={{ scale: 1.4, rotate: 40 }}>
+                  <Tooltip title="Vote up">
+                    <Button
+                      variant="outlined"
+                      color={ vote === 1 ? "success" : "primary"}
+                      id="thumb-up"
+                      sx={{ textTransform: "none", width: { xs: "100%", sm: "auto"} }}
+                      onClick={() => handleIcrements(1)}
+                    >
+                      {vote === 1 ? <ThumbUpIcon /> : <ThumbUpAltOutlinedIcon />}
+                    </Button>
+                  </Tooltip>
+                </motion.div>
+                <motion.div whileTap={{ scale: 1.4, rotate: 40 }}>
+                  <Tooltip title="Vote down">
+                    <Button
+                      variant="outlined"
+                      color={vote === -1 ? "error" : "primary"}
+                      id="thumb-down"
+                      sx={{ textTransform: "none", width: { xs: "100%", sm: "auto"} }}
+                      onClick={() => handleIcrements(-1)}
+                    >
+                      {vote === -1 ? <ThumbDownIcon /> : <ThumbDownOutlinedIcon />}
+                    </Button>
+                  </Tooltip>
+                </motion.div>
               </Stack>
               </Stack>
             </Grid2>
