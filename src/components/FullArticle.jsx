@@ -19,6 +19,7 @@ import ThumbUpAltOutlinedIcon from '@mui/icons-material/ThumbUpAltOutlined';
 import ThumbDownOutlinedIcon from '@mui/icons-material/ThumbDownOutlined';
 import ThumbUpIcon from '@mui/icons-material/ThumbUp';
 import ThumbDownIcon from '@mui/icons-material/ThumbDown';
+import { motion } from "framer-motion";
 
 
 const FullArticle = () => {
@@ -149,37 +150,41 @@ const FullArticle = () => {
                 className="thumbs"
               >
                 {voteError ? <p>{voteError}</p> : null}
-                <Tooltip title="Vote up">
-                  <Button
-                    variant="outlined"
-                    id="thumb-up"
-                    size="large"
-                    color={vote === 1 ? "success" : "primary"}
-                    sx={{
-                      textTransform: "none",
-                      width: { xs: "100%", sm: "auto" },
-                    }}
-                    onClick={() => handleIcrements(1)}
-                  >
-                    { vote === 1 ? <ThumbUpIcon/> : <ThumbUpAltOutlinedIcon/>}
-                  </Button>
-                </Tooltip>
-                <Tooltip title="Vote down">
-                  <Button
-                    variant="outlined"
-                    id="thumb-down"
-                    size="large"
-                    color={vote === -1 ? "error" : "primary"}
-                    sx={{
-                      textTransform: "none",
-                      width: { xs: "100%", sm: "auto" },
-                    }}
-                    onClick={() => handleIcrements(-1)}
-                    
-                  >
-                    {vote === -1 ? <ThumbDownIcon /> : <ThumbDownOutlinedIcon />}
-                  </Button>
-                </Tooltip>
+                <motion.div whileTap={{ scale: 1.2, rotate: 40 }}>
+                  <Tooltip title="Vote up">
+                    <Button
+                      variant="outlined"
+                      id="thumb-up"
+                      size="large"
+                      color={vote === 1 ? "success" : "primary"}
+                      sx={{
+                        textTransform: "none",
+                        width: { xs: "100%", sm: "auto" },
+                      }}
+                      onClick={() => handleIcrements(1)}
+                    >
+                      { vote === 1 ? <ThumbUpIcon/> : <ThumbUpAltOutlinedIcon/>}
+                    </Button>
+                  </Tooltip>
+                </motion.div>
+                <motion.div whileTap={{ scale: 1.4, rotate: 40 }}>
+                  <Tooltip title="Vote down">
+                    <Button
+                      variant="outlined"
+                      id="thumb-down"
+                      size="large"
+                      color={vote === -1 ? "error" : "primary"}
+                      sx={{
+                        textTransform: "none",
+                        width: { xs: "100%", sm: "auto" },
+                      }}
+                      onClick={() => handleIcrements(-1)}
+                  
+                    >
+                      {vote === -1 ? <ThumbDownIcon /> : <ThumbDownOutlinedIcon />}
+                    </Button>
+                  </Tooltip>
+                </motion.div>
               </Stack>
             </Stack>
           </Box>
