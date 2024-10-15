@@ -22,9 +22,6 @@ const CommentCard = ({
 }) => {
   const { user, setUser } = useContext(UserContext);
   const [isDeletingComment, setIsDeletingComment] = useState(false);
-  const [increment, setIncrement] = useState(0);
-  // const [hasVotedUp, setHasVotedUp] = useState(false);
-  // const [hasVotedDown, setHasVotedDown] = useState(false);
   const [vote, setVote] = useState(0);
   const [voteError, setVoteError] = useState(null);
   const [avatar, setAvatar] = useState('');
@@ -52,18 +49,6 @@ const CommentCard = ({
     setVote(newVote);
 
     const voteDifference = newVote - vote;
-
-    // setIncrement((currentVotesCount) => {
-    //   return currentVotesCount + increment;
-    // });
-
-    // if (increment === 1) {
-    //   setHasVotedUp(true);
-    //   setHasVotedDown(false);
-    // } else {
-    //   setHasVotedDown(true);
-    //   setHasVotedUp(false);
-    // }
 
     setComments((currentComments) => {
         return currentComments.map((comment)=> {
