@@ -6,6 +6,10 @@ import { Paper, Button, Typography, Avatar, Stack, Tooltip } from "@mui/material
 import Grid2 from "@mui/material/Unstable_Grid2/Grid2";
 import ThumbUpIcon from "@mui/icons-material/ThumbUp";
 import ThumbDownIcon from "@mui/icons-material/ThumbDown";
+import ThumbUpAltOutlinedIcon from '@mui/icons-material/ThumbUpAltOutlined';
+import ThumbDownOutlinedIcon from '@mui/icons-material/ThumbDownOutlined';
+import { motion } from "framer-motion";
+
 
 
 const CommentCard = ({
@@ -19,8 +23,9 @@ const CommentCard = ({
   const { user, setUser } = useContext(UserContext);
   const [isDeletingComment, setIsDeletingComment] = useState(false);
   const [increment, setIncrement] = useState(0);
-  const [hasVotedUp, setHasVotedUp] = useState(false);
-  const [hasVotedDown, setHasVotedDown] = useState(false);
+  // const [hasVotedUp, setHasVotedUp] = useState(false);
+  // const [hasVotedDown, setHasVotedDown] = useState(false);
+  const [vote, setVote] = useState(0);
   const [voteError, setVoteError] = useState(null);
   const [avatar, setAvatar] = useState('');
   const [isLoading, setIsLoading] = useState(false);
@@ -36,32 +41,44 @@ const CommentCard = ({
 
 
   const handleIcrements = (increment) => {
-    setIncrement((currentVotesCount) => {
-      return currentVotesCount + increment;
-    });
+    let newVote;
 
-    if (increment === 1) {
-      setHasVotedUp(true);
-      setHasVotedDown(false);
-    } else {
-      setHasVotedDown(true);
-      setHasVotedUp(false);
+    if(vote === increment){
+      newVote = 0;
+    }else {
+      newVote = increment;
     }
+
+    setVote(newVote);
+
+    const voteDifference = newVote - vote;
+
+    // setIncrement((currentVotesCount) => {
+    //   return currentVotesCount + increment;
+    // });
+
+    // if (increment === 1) {
+    //   setHasVotedUp(true);
+    //   setHasVotedDown(false);
+    // } else {
+    //   setHasVotedDown(true);
+    //   setHasVotedUp(false);
+    // }
 
     setComments((currentComments) => {
         return currentComments.map((comment)=> {
           if(comment.comment_id === commentId) {
-            return {...comment, votes: comment.votes + increment };
+            return {...comment, votes: comment.votes + voteDifference };
           }
           return comment;
         });
     });
     
-    patchComment(commentId, increment).catch((err) => {
+    patchComment(commentId, voteDifference).catch((err) => {
       setComments((currentComments) => {
         return currentComments.map((comment)=> {
           if(comment.comment_id === commentId) {
-            return {...comment, votes: comment.votes - increment };
+            return {...comment, votes: comment.votes - voteDifference };
           }
           return comment;
         });
@@ -140,22 +157,24 @@ const CommentCard = ({
                 <Tooltip title="Vote up">
                   <Button
                     variant="outlined"
+                    color={ vote === 1 ? "success" : "primary"}
                     id="thumb-up"
                     sx={{ textTransform: "none", width: { xs: "100%", sm: "auto"} }}
                     onClick={() => handleIcrements(1)}
-                    disabled={hasVotedUp}
-                    endIcon={<ThumbUpIcon />}
-                  />
+                  >
+                    {vote === 1 ? <ThumbUpIcon /> : <ThumbUpAltOutlinedIcon />}
+                  </Button>
                 </Tooltip>
                 <Tooltip title="Vote down">
                   <Button
                     variant="outlined"
+                    color={vote === -1 ? "error" : "primary"}
                     id="thumb-down"
                     sx={{ textTransform: "none", width: { xs: "100%", sm: "auto"} }}
                     onClick={() => handleIcrements(-1)}
-                    disabled={hasVotedDown}
-                    endIcon={<ThumbDownIcon />}
-                  />
+                  >
+                    {vote === -1 ? <ThumbDownIcon /> : <ThumbDownOutlinedIcon />}
+                  </Button>
                 </Tooltip>
               </Stack>
               </Stack>
