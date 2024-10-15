@@ -1,6 +1,7 @@
 import { Typography, Stack, Link, Box } from "@mui/material";
 import CopyrightIcon from "@mui/icons-material/Copyright";
 import GitHubIcon from "@mui/icons-material/GitHub";
+import { motion } from "framer-motion";
 
 const Footer = () => {
   return (
@@ -38,9 +39,11 @@ const Footer = () => {
             NC News
           </Link>
         </Typography>
-        <Link href="https://github.com/FreemindNation">
-          <GitHubIcon sx={{ color: "#F5F5F5" }} className="icon" />
-        </Link>
+        <motion.div whileHover={{ rotate: 360, scale: 1.6 }}>
+          <Link href="https://github.com/FreemindNation">
+            <GitHubIcon sx={{ color: "#F5F5F5" }} className="icon" />
+          </Link>
+        </motion.div>
       </Stack>
     </Box>
   );

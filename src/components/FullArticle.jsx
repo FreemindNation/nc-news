@@ -11,20 +11,22 @@ import {
   Box,
   Typography,
   Button,
+  IconButton,
   Tooltip,
   Stack,
 } from "@mui/material";
+import ThumbUpAltOutlinedIcon from "@mui/icons-material/ThumbUpAltOutlined";
+import ThumbDownOutlinedIcon from "@mui/icons-material/ThumbDownOutlined";
 import ThumbUpIcon from "@mui/icons-material/ThumbUp";
 import ThumbDownIcon from "@mui/icons-material/ThumbDown";
+import { motion } from "framer-motion";
 
 const FullArticle = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [article, setArticle] = useState({});
-  const [increment, setIncrement] = useState(0);
   const { error, setError } = useContext(ErrorContext);
   const [voteError, setVoteError] = useState(null);
-  const [hasVotedUp, setHasVotedUp] = useState(false);
-  const [hasVotedDown, setHasVotedDown] = useState(false);
+  const [vote, setVote] = useState(0);
 
   const { article_id } = useParams();
 
@@ -41,27 +43,32 @@ const FullArticle = () => {
   }, [article_id]);
 
   const handleIcrements = (increment) => {
-    setIncrement((currentVotesCount) => {
-      return currentVotesCount + increment;
-    });
-    if (increment === 1) {
-      setHasVotedUp(true);
-      setHasVotedDown(false);
+    let newVote;
+
+    if (vote === increment) {
+      newVote = 0;
     } else {
-      setHasVotedDown(true);
-      setHasVotedUp(false);
+      newVote = increment;
     }
-    patchArticle(article.article_id, increment).catch((err) => {
-      setArticle((currentArticle) => {
-        return { ...currentArticle, votes: article.Votes - increment };
-      });
+
+    const voteDifference = newVote - vote;
+
+    setVote(newVote);
+
+    setArticle((currentArticle) => ({
+      ...currentArticle,
+      votes: currentArticle.votes + voteDifference,
+    }));
+
+    patchArticle(article.article_id, voteDifference).catch((err) => {
+      setVote(vote);
+      setArticle((currentArticle) => ({
+        ...currentArticle,
+        votes: currentArticle.votes - voteDifference,
+      }));
       setVoteError(
         "Oops! Something went wrong, please refresh the page and try again"
       );
-    });
-
-    setArticle((currentArticle) => {
-      return { ...currentArticle, votes: article.votes + increment };
     });
   };
 
@@ -146,36 +153,48 @@ const FullArticle = () => {
                 className="thumbs"
               >
                 {voteError ? <p>{voteError}</p> : null}
-                <Tooltip title="Vote up">
-                  <Button
-                    variant="outlined"
-                    id="thumb-up"
-                    sx={{
-                      textTransform: "none",
-                      width: { xs: "100%", sm: "auto" },
-                    }}
-                    onClick={() => handleIcrements(1)}
-                    disabled={hasVotedUp}
-                    endIcon={<ThumbUpIcon />}
-                  >
-                    Vote
-                  </Button>
-                </Tooltip>
-                <Tooltip title="Vote down">
-                  <Button
-                    variant="outlined"
-                    id="thumb-down"
-                    sx={{
-                      textTransform: "none",
-                      width: { xs: "100%", sm: "auto" },
-                    }}
-                    onClick={() => handleIcrements(-1)}
-                    disabled={hasVotedDown}
-                    endIcon={<ThumbDownIcon />}
-                  >
-                    Vote
-                  </Button>
-                </Tooltip>
+                <motion.div whileTap={{ scale: 1.2, rotate: 40 }}>
+                  <Tooltip title="Vote up">
+                    <Button
+                      variant="outlined"
+                      id="thumb-up"
+                      size="large"
+                      color={vote === 1 ? "success" : "primary"}
+                      sx={{
+                        textTransform: "none",
+                        width: { xs: "100%", sm: "auto" },
+                      }}
+                      onClick={() => handleIcrements(1)}
+                    >
+                      {vote === 1 ? (
+                        <ThumbUpIcon />
+                      ) : (
+                        <ThumbUpAltOutlinedIcon />
+                      )}
+                    </Button>
+                  </Tooltip>
+                </motion.div>
+                <motion.div whileTap={{ scale: 1.4, rotate: 40 }}>
+                  <Tooltip title="Vote down">
+                    <Button
+                      variant="outlined"
+                      id="thumb-down"
+                      size="large"
+                      color={vote === -1 ? "error" : "primary"}
+                      sx={{
+                        textTransform: "none",
+                        width: { xs: "100%", sm: "auto" },
+                      }}
+                      onClick={() => handleIcrements(-1)}
+                    >
+                      {vote === -1 ? (
+                        <ThumbDownIcon />
+                      ) : (
+                        <ThumbDownOutlinedIcon />
+                      )}
+                    </Button>
+                  </Tooltip>
+                </motion.div>
               </Stack>
             </Stack>
           </Box>
@@ -188,14 +207,8 @@ const FullArticle = () => {
             <CommentsList
               article={article}
               setArticle={setArticle}
-              increment={increment}
-              setIncrement={setIncrement}
               voteError={voteError}
               setVoteError={setVoteError}
-              hasVotedUp={hasVotedUp}
-              setHasVotedUp={setHasVotedUp}
-              hasVotedDown={hasVotedDown}
-              setHasVotedDown={setHasVotedDown}
             />
           </Collapsible>
         </Box>

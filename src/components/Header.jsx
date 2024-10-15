@@ -6,6 +6,7 @@ import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import Grid2 from "@mui/material/Unstable_Grid2/Grid2";
 import PublicIcon from "@mui/icons-material/Public";
 import { Link } from "react-router-dom";
+import { motion } from "framer-motion";
 
 const Header = () => {
   const { user, setUser } = useContext(UserContext);
@@ -36,7 +37,12 @@ const Header = () => {
               NC
             </Typography>
             <Link to="/" style={{ color: "white" }}>
-              <PublicIcon fontSize="large" />
+              <motion.div
+                animate={{ rotate: 360 }}
+                transition={{ duration: 4, ease: "linear", repeat: Infinity }}
+              >
+                <PublicIcon fontSize="large" />
+              </motion.div>
             </Link>
             <Typography
               variant="h5"
