@@ -28,18 +28,18 @@ const Footer = () => {
           sx={{ textAlign: "center", color: "#F5F5F5" }}
         >
           <CopyrightIcon /> {`${new Date().getFullYear()} |`}{" "}
-            <Link
-              href="https://github.com/FreemindNation/nc-news/tree/main"
-              sx={{
-                color: "#F5F5F5",
-                textDecoration: "none",
-                "&:hover": { textDecoration: "underline" },
-              }}
-            >
-              NC News
-            </Link>
+          <Link
+            href="https://github.com/FreemindNation/nc-news/tree/main"
+            sx={{
+              color: "#F5F5F5",
+              textDecoration: "none",
+              "&:hover": { textDecoration: "underline" },
+            }}
+          >
+            NC News
+          </Link>
         </Typography>
-        <motion.div whileHover={{ rotate: 360, scale: 1.60 }}>
+        <motion.div whileHover={{ rotate: 360, scale: 1.6 }}>
           <Link href="https://github.com/FreemindNation">
             <GitHubIcon sx={{ color: "#F5F5F5" }} className="icon" />
           </Link>

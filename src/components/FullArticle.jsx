@@ -15,12 +15,11 @@ import {
   Tooltip,
   Stack,
 } from "@mui/material";
-import ThumbUpAltOutlinedIcon from '@mui/icons-material/ThumbUpAltOutlined';
-import ThumbDownOutlinedIcon from '@mui/icons-material/ThumbDownOutlined';
-import ThumbUpIcon from '@mui/icons-material/ThumbUp';
-import ThumbDownIcon from '@mui/icons-material/ThumbDown';
+import ThumbUpAltOutlinedIcon from "@mui/icons-material/ThumbUpAltOutlined";
+import ThumbDownOutlinedIcon from "@mui/icons-material/ThumbDownOutlined";
+import ThumbUpIcon from "@mui/icons-material/ThumbUp";
+import ThumbDownIcon from "@mui/icons-material/ThumbDown";
 import { motion } from "framer-motion";
-
 
 const FullArticle = () => {
   const [isLoading, setIsLoading] = useState(true);
@@ -46,7 +45,7 @@ const FullArticle = () => {
   const handleIcrements = (increment) => {
     let newVote;
 
-    if(vote === increment) {
+    if (vote === increment) {
       newVote = 0;
     } else {
       newVote = increment;
@@ -56,18 +55,22 @@ const FullArticle = () => {
 
     setVote(newVote);
 
-    setArticle((currentArticle) => ({...currentArticle, votes: currentArticle.votes + voteDifference}));
+    setArticle((currentArticle) => ({
+      ...currentArticle,
+      votes: currentArticle.votes + voteDifference,
+    }));
 
-    patchArticle(article.article_id, voteDifference)
-    .catch((err) => {
+    patchArticle(article.article_id, voteDifference).catch((err) => {
       setVote(vote);
-      setArticle((currentArticle) => ({...currentArticle, votes: currentArticle.votes - voteDifference}));
+      setArticle((currentArticle) => ({
+        ...currentArticle,
+        votes: currentArticle.votes - voteDifference,
+      }));
       setVoteError(
         "Oops! Something went wrong, please refresh the page and try again"
       );
-    })
+    });
   };
-
 
   if (error) {
     return <ErrorComponent message={error} />;
@@ -163,7 +166,11 @@ const FullArticle = () => {
                       }}
                       onClick={() => handleIcrements(1)}
                     >
-                      { vote === 1 ? <ThumbUpIcon/> : <ThumbUpAltOutlinedIcon/>}
+                      {vote === 1 ? (
+                        <ThumbUpIcon />
+                      ) : (
+                        <ThumbUpAltOutlinedIcon />
+                      )}
                     </Button>
                   </Tooltip>
                 </motion.div>
@@ -179,9 +186,12 @@ const FullArticle = () => {
                         width: { xs: "100%", sm: "auto" },
                       }}
                       onClick={() => handleIcrements(-1)}
-                  
                     >
-                      {vote === -1 ? <ThumbDownIcon /> : <ThumbDownOutlinedIcon />}
+                      {vote === -1 ? (
+                        <ThumbDownIcon />
+                      ) : (
+                        <ThumbDownOutlinedIcon />
+                      )}
                     </Button>
                   </Tooltip>
                 </motion.div>

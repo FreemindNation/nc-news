@@ -37,9 +37,10 @@ const Header = () => {
               NC
             </Typography>
             <Link to="/" style={{ color: "white" }}>
-              <motion.div 
-              animate= {{ rotate: 360 }} 
-              transition={{ duration: 4, ease: "linear", repeat: Infinity }}>
+              <motion.div
+                animate={{ rotate: 360 }}
+                transition={{ duration: 4, ease: "linear", repeat: Infinity }}
+              >
                 <PublicIcon fontSize="large" />
               </motion.div>
             </Link>
